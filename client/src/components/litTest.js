@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
-import { ethers } from 'ethers';
-import { create } from 'ipfs-http-client';
+import { ethers } from "ethers";
+import { create } from "ipfs-http-client";
 
 // InfuraのプロジェクトIDを設定
-const projectId = '2OEyixJ9bhNc8ilnjG7qyV7IXwL';   // <---------- your Infura Project ID
-
-const projectSecret = '1b8c0b6c542ea6beab46de4b4a7f69ca';  // <---------- your Infura Secret
+const projectId = "2OEyixJ9bhNc8ilnjG7qyV7IXwL"; // <---------- your Infura Project ID
+const projectSecret = "1b8c0b6c542ea6beab46de4b4a7f69ca"; // <---------- your Infura Secret
 // (for security concerns, consider saving these values in .env files)
 
-const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+const auth =
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
 const ipfs = create({
-    host: 'ipfs.infura.io',
-    port: 5001,
-    protocol: 'https',
-    headers: {
-        authorization: auth,
-    },
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+  headers: {
+    authorization: auth,
+  },
 });
 
 async function uploadToIPFS(encryptedData) {
@@ -32,20 +32,20 @@ export async function loginToLitNode(signer) {
     debug: true,
   });
   await litNodeClient.connect(signer);
-  console.log('Logged in to Lit Node');
+  console.log("Logged in to Lit Node");
   return litNodeClient;
 }
 
 async function encryptAndUploadToIPFS(litNodeClient, data) {
   const { encryptedData, symmetricKey } = await LitJsSdk.encryptString(data);
-    console.log('Encrypted data:', encryptedData);
-    console.log('Symmetric key:', symmetricKey);
+  console.log("Encrypted data:", encryptedData);
+  console.log("Symmetric key:", symmetricKey);
   const ipfsHash = await uploadToIPFS(encryptedData);
-    
-  console.log('Encrypted data uploaded to IPFS:', ipfsHash);
+
+  console.log("Encrypted data uploaded to IPFS:", ipfsHash);
 
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: "ethereum" });
-  console.log("authSig: ", authSig)
+  console.log("authSig: ", authSig);
 
   // var accessControlConditions = [
   //   {
@@ -62,21 +62,18 @@ async function encryptAndUploadToIPFS(litNodeClient, data) {
   // ];
 
   const accessControlConditions = [
-  {
-    contractAddress: '',
-    standardContractType: '',
-    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-    method: 'eth_getBalance',
-    parameters: [
-      ':userAddress',
-      'latest'
-    ],
-    returnValueTest: {
-      comparator: '>=',
-      value: '0'
-    }
-  }
-]
+    {
+      contractAddress: "",
+      standardContractType: "",
+      chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+      method: "eth_getBalance",
+      parameters: [":userAddress", "latest"],
+      returnValueTest: {
+        comparator: ">=",
+        value: "0",
+      },
+    },
+  ];
 
   // store the access control conditions
   const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
@@ -88,7 +85,7 @@ async function encryptAndUploadToIPFS(litNodeClient, data) {
 
   console.log("Condition stored.  Now to retrieve the key and decrypt it.");
 
-   const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
+  const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
     accessControlConditions,
     toDecrypt: LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16"),
     chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
@@ -127,7 +124,6 @@ const go = async () => {
 
 go();
 `;
-
 
 const runLitAction = async () => {
   // you need an AuthSig to auth with the nodes
@@ -168,9 +164,9 @@ function App() {
     const litNodeClient = await loginToLitNode(signer);
     setLitNodeClient(litNodeClient);
 
-    const data = 'Secret data to be encrypted and stored on IPFS';
+    const data = "Secret data to be encrypted and stored on IPFS";
     const ipfsHash = await encryptAndUploadToIPFS(litNodeClient, data);
-    const userAddress = '0x3a0bE810754f7f7D04fCA10E2C11E93ebb5BF19e';
+    const userAddress = "0x3a0bE810754f7f7D04fCA10E2C11E93ebb5BF19e";
     // await grantAccessToEncryptedData(litNodeClient, ipfsHash, userAddress);
   };
 
@@ -184,27 +180,43 @@ function App() {
       const litNodeClient = await loginToLitNode(signer);
       setLitNodeClient(litNodeClient);
 
-      const data = 'Secret data to be encrypted and stored on IPFS';
+      const data = "Secret data to be encrypted and stored on IPFS";
       // const ipfsHash = await encryptAndUploadToIPFS(litNodeClient, data);
-      const userAddress = '0x3a0bE810754f7f7D04fCA10E2C11E93ebb5BF19e';
+      const userAddress = "0x3a0bE810754f7f7D04fCA10E2C11E93ebb5BF19e";
       // await grantAccessToEncryptedData(litNodeClient, ipfsHash, userAddress);
     };
 
     if (window.ethereum) {
       init();
     } else {
-      console.error('Ethereum provider not found. Please install MetaMask or another provider.');
+      console.error(
+        "Ethereum provider not found. Please install MetaMask or another provider."
+      );
     }
   }, []);
 
   return (
     <div className="App">
       <h1>Lit Protocol Integration Example</h1>
-      {litNodeClient ? <p>Logged in to Lit Node</p> : <p>Connecting to Lit Node...</p>}
+      {litNodeClient ? (
+        <p>Logged in to Lit Node</p>
+      ) : (
+        <p>Connecting to Lit Node...</p>
+      )}
       {/* runLitaction()関数を動かすためのボタン */}
-      <button onClick={()=>{runLitAction()}}>Run Lit Action</button>
+      <button
+        onClick={() => {
+          runLitAction();
+        }}>
+        Run Lit Action
+      </button>
 
-      <button onClick={()=>{test()}}>Degree</button>
+      <button
+        onClick={() => {
+          test();
+        }}>
+        Degree
+      </button>
     </div>
   );
 }
