@@ -6,24 +6,27 @@ pragma solidity ^0.8.9;
 
 contract Unyte {
     mapping(address => mapping(address => bytes32)) internal ipfsHashStorage;
-    address[] ipfsKeys;
+    mapping(address => address[]) ipfsKeys;
     
     function setIpfsHash(address target, bytes32 ipfsHash) public {
         ipfsHashStorage[target][msg.sender] = ipfsHash;
-        for (uint256 i = 0; i < ipfsKeys.length; i++) {
-            if (ipfsKeys[i] == target) {
+        for (uint256 i = 0; i < ipfsKeys[target].length; i++) {
+            if (ipfsKeys[target][i] == target) {
                 return;
             }
         }
-        ipfsKeys.push(address);
+        address[] storage keys = ipfsKeys[target];
+        keys.push(target);
+        return;
     }
 
-    function getIpfsHashList() public view returns(address[] memory, bytes32[] memory) {
-        bytes32[] memory ipfsHashList;
-        for(uint256 i = 0; i < ipfsKeys.length; i++){
-            ipfsHashList.push(ipfsHashStorage[ipfsKeys[i]]);
+    function getIpfsHashList(address target) public view returns(address[] memory, bytes32[] memory) {
+        address[] memory keys = ipfsKeys[target];
+        bytes32[] memory ipfsHashList = new bytes32[](keys.length);
+        for(uint256 i = 0; i < keys.length; i++){
+            ipfsHashList[i] = ipfsHashStorage[target][keys[i]];
         }
-        return (ipfsKeys, ipfsHashList);
+        return (keys, ipfsHashList);
     }
 
     function ping() public pure returns(string memory) {
