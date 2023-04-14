@@ -1,26 +1,23 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+import SearchBar from "../components/SearchBar";
+import SearchResult from "../components/SearchResult";
 
-const SeeingReputation = (assessments) => {
+const SeeingReputation = (data) => {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = () => {
+    setSearchTerm(searchTerm);
+    setSearchResults(data.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase())));
+  };
+
   return (
     <>
       <Header />
-      <SearchBar />
-      {/* <div className="index">
-        {assessments.map((aasessment) => {
-          return (
-            <>
-              <Typography>
-                {aasessment.name}
-              </Typography>
-              <Typography>
-                {aasessment.content}
-              </Typography>
-            </>
-          )
-        })}
-      </div> */}
+      <SearchBar onSearch={handleSearch} />
+      {searchTerm && <SearchResult data={searchResults} />}
     </>
   )
 }
