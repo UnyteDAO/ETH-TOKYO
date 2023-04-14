@@ -3,16 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 
 // presentation
-import Header from "./presentation/view_interfaces/components/Header";
-import Top from "./presentation/view_interfaces/Top";
-import ProposalsOfTeams from "./presentation/view_interfaces/ProposalsOfTeams";
-import ContributionsOfTeams from "./presentation/view_interfaces/ContributionsOfTeams";
-import ThanksOfTeams from "./presentation/view_interfaces/ThanksOfTeams";
-import Profile from "./presentation/view_interfaces/Profile";
-import DashBoard from "./presentation/view_interfaces/DashBoard";
-import Box from "@mui/material/Box";
-import Settings from "./presentation/view_interfaces/settings/PageSettings";
-import ProfileProvider from "presentation/view_interfaces/components/ServerProfileProvider";
+
 
 // MUI
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -21,6 +12,7 @@ import TaskPage from "presentation/view_interfaces/task/TaskIndexPage";
 // React Toasify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReputationPage from "./pages/ReputationPage";
 
 const theme = createTheme({
   palette: {
@@ -74,7 +66,7 @@ function App() {
               <Box flex={1} overflow="auto">
                 <Routes>
                   {/* <SlideRoutes> */}
-                  <Route path="/" element={<Top />} />
+                  <Route path="/" element={<ReputationPage />} />
                   <Route exact path="/tasks/:teamid" element={<TaskPage />} />
                   <Route path="/settings/:teamid" element={<Settings />} />
                   <Route
