@@ -7,6 +7,7 @@ import Recruiter from "./pages/Recruiter";
 import Reviewer from "./pages/Reviewer";
 // import "./App.scss";
 import Header from "./components/Header";
+import LitPage from "./pages/ListTest"
 
 // This is a root context, if insert value to this, every component can use same data and update value
 // export const AuthContext = createContext({
@@ -24,6 +25,7 @@ const App: React.FC = () => {
           <Route path="/dao-worker" element={<DaoWorker />} />
           <Route path="/recruiter" element={<Recruiter />} />
           <Route path="/reviewer" element={<Reviewer />} />
+          <Route path="/lit-test" element={<LitPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

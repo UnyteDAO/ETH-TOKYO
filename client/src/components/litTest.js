@@ -25,7 +25,7 @@ async function uploadToIPFS(encryptedData) {
   return path;
 }
 
-async function loginToLitNode(signer) {
+export async function loginToLitNode(signer) {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
     litNetwork: "serrano",
