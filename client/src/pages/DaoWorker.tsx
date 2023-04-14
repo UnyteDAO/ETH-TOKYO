@@ -1,4 +1,5 @@
-import React from "react";
+// reactとuseEffectのインポート
+import React, { useState, useEffect, useContext } from "react";
 import {
   TextField,
   InputAdornment,
@@ -33,6 +34,11 @@ const data: Data[] = Array(10)
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const DaoWorker = () => {
+  const [content, setContent] = useState([{
+    id: 0,
+    name: `name`,
+  }]);
+
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -47,7 +53,7 @@ const DaoWorker = () => {
       <ListContent>
         <Box sx={{ width: "100%" }}>
           <List>
-            {data.map((item) => (
+            {content.map((item) => (
               <ListItem key={item.id}>
                 <ListItemAvatar>
                   <Avatar>
