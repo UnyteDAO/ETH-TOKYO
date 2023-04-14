@@ -19,13 +19,13 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
-        setWalletAddress(res[0]);
-      });
-    }
-  });
+  // useEffect(() => {
+  //   if (window.ethereum) {
+  //     window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+  //       setWalletAddress(res[0]);
+  //     });
+  //   }
+  // });
 
   return (
     <StyledAppBar position="static">
