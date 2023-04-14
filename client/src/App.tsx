@@ -4,8 +4,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import theme from "./theme/theme";
 import DaoWorker from "./pages/DaoWorker";
 import Recruiter from "./pages/Recruiter";
+import RecruiterDetail from "./pages/RecruiterDetail";
 import Reviewer from "./pages/Reviewer";
-// import "./App.scss";
 import Header from "./components/Header";
 import LitPage from "./pages/ListTest"
 
@@ -24,6 +24,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/dao-worker" element={<DaoWorker />} />
           <Route path="/recruiter" element={<Recruiter />} />
+          <Route path="/recruiter/:itemId" element={<RecruiterDetail />} />
           <Route path="/reviewer" element={<Reviewer />} />
           <Route path="/lit-test" element={<LitPage />} />
         </Routes>
