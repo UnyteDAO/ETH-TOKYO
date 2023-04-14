@@ -1,7 +1,7 @@
-import React from "react";
 import { Typography, TextField, Button } from "@mui/material";
+import React from "react";
 
-const Reviewer = () => {
+const RecruiterDetail = (to = "") => {
   return (
     <main>
       <div>
@@ -21,4 +21,4 @@ const Reviewer = () => {
   );
 };
 
-export default Reviewer;
+export default RecruiterDetail;

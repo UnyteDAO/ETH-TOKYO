@@ -5,57 +5,29 @@ import theme from "./theme/theme";
 import DaoWorker from "./pages/DaoWorker";
 import Recruiter from "./pages/Recruiter";
 import Reviewer from "./pages/Reviewer";
+// import "./App.scss";
+import Header from "./components/Header";
+
+// This is a root context, if insert value to this, every component can use same data and update value
+// export const AuthContext = createContext({
+// tokenState: null,
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+// setATCallback: (value) => {},
+// });
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <Header />
         <Routes>
-          <Route path="/" element={<DaoWorker />} />
-          <Route path="/about" element={<Recruiter />} />
-          <Route path="/contact" element={<Reviewer />} />
+          <Route path="/dao-worker" element={<DaoWorker />} />
+          <Route path="/recruiter" element={<Recruiter />} />
+          <Route path="/reviewer" element={<Reviewer />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );
 };
-
-// const theme = createTheme({
-//   palette: {
-//     mode: "dark",
-//     primary: {
-//       background: "linear-gradient(to right bottom, #ff7f50,#f44336)",
-//       light: "#ff7f50",
-//       main: "#ff7f50",
-//       dark: "#ff7f50",
-//       contrastText: "#fff",
-//     },
-//     secondary: {
-//       light: "#ff7961",
-//       main: "#f44336",
-//       dark: "#ba000d",
-//       contrastText: "#000",
-//     },
-//   },
-// });
-
-// This is a root context, if insert value to this, every component can use same data and update value
-// export const AuthContext = createContext({
-//   tokenState: null,
-//   // eslint-disable-next-line @typescript-eslint/no-empty-function
-//   setATCallback: (value) => {},
-// });
-
-// export const useToken = () => {
-//   const [tokenState, setTokenState] = useState(null);
-//   const setATCallback = useCallback((currentAT) => {
-//     setTokenState(currentAT);
-//     console.log(currentAT);
-//   }, []);
-//   return {
-//     tokenState,
-//     setATCallback,
-//   };
-// };
 
 export default App;
