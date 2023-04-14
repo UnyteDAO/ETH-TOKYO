@@ -23,15 +23,31 @@ export const StyledButton = styled(Button)`
 export const ListWrapper = styled(Box)`
   width: 100vw;
   min-height: 100vh;
-  padding-top: 50vh;
+  padding-top: 40vh;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ListWrapperNoP = styled(Box)`
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 `;
 
 export const ListContent = styled(Box)`
-  max-width: 960px;
+  width: 960px;
   display: flex;
   flex-direction: column;
+`;
+
+export const Ucol = styled(Box)`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Urow = styled(Box)`
+  display: flex;
 `;
 
 export const AuthWrapper = styled(Box)`

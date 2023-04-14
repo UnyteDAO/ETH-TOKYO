@@ -12,9 +12,10 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import { ListWrapper, ListContent } from "../styled/styledComps";
+import SearchIcon from "@mui/icons-material/Search";
 import FolderIcon from "@mui/icons-material/Folder";
+import { useNavigate } from "react-router-dom";
 
 interface Data {
   id: number;
@@ -29,11 +30,13 @@ const data: Data[] = Array(10)
   }));
 
 const Recruiter = () => {
+  const navigate = useNavigate();
+
   const handleSearch = () => {
     console.log("Search clicked");
   };
   const handleButtonClick = (itemId: number) => {
-    console.log(`Button clicked for item ${itemId}`);
+    navigate(`/recruiter/${itemId}`);
   };
 
   return (
