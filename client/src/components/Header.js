@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { styled, createTheme } from '@mui/system';
@@ -13,11 +13,23 @@ const Header = () => {
   const navigate = useNavigate();
   const [walletAddress, setWalletAddress] = useState(null);
 
-  if (window.ethereum) {
-    window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
-      setWalletAddress(res[0]);
-    });
+  const connectToMetamask = () => {
+    if(window.ethereum) {
+      window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
+        setWalletAddress(res[0]);
+      });
+    } else {
+      alert("Metamaskがインストールされていません")
+    }
   }
+
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.request({ method: 'eth_requestAccounts' }).then((res) => {
+        setWalletAddress(res[0]);
+      });
+    }
+  })
 
   return (
     <StyledAppBar position="static">
@@ -28,7 +40,7 @@ const Header = () => {
           </Button>
         </Box>
         {!walletAddress ? (
-          <Button color="secondary">Connect to Metamask</Button>
+          <Button onClick={() => {connectToMetamask()}} color="secondary">Connect to Metamask</Button>
         ) : (
           <Typography>{walletAddress}</Typography>
         )}
