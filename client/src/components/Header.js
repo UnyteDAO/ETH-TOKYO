@@ -9,6 +9,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import iconWide from "../assets/icon_wide.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, createTheme } from "@mui/system";
@@ -55,48 +56,62 @@ const Header = () => {
   }, []);
 
   return (
-    <>
-      <StyledAppBar position="fixed">
-        <Toolbar>
-          <Box sx={{ flexGrow: 1 }}>
-            <Button onClick={() => navigate("/")}>
-              <img
-                src={iconWide}
-                alt="Unyte"
-                style={{ height: "32px", width: "auto" }}
-              />
-            </Button>
-          </Box>
-          {!walletAddress ? (
-            <Button
-              onClick={() => {
-                connectToMetamask();
-              }}
-              color="secondary">
-              Connect to Metamask
-            </Button>
-          ) : (
-            <Tooltip
-              title={
-                <Typography
-                  variant="body1"
-                  // component="span"
-                  sx={{ fontSize: "2rem" }}>
-                  {parseInt(balance * 18)} UNYT
-                </Typography>
-              }
-              open
-              arrow>
-              <Typography>{walletAddress}</Typography>
-            </Tooltip>
-          )}
-          <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </StyledAppBar>
-      <Box sx={{ paddingTop: "64px" }} /> {/* ヘッダー下のスペースを確保 */}
-    </>
+    <StyledAppBar position="fixed">
+      <Toolbar>
+        <Box sx={{ flexGrow: 1 }}>
+          <Button onClick={() => navigate("/")}>
+            <img
+              src={iconWide}
+              alt="Unyte"
+              style={{ height: "32px", width: "auto" }}
+            />
+          </Button>
+          <Button component={Link} to="/" variant="text" color="secondary">
+            Reviewer
+          </Button>
+          <Button
+            component={Link}
+            to="/dao-worker"
+            variant="text"
+            color="secondary">
+            Dao Worker
+          </Button>
+          <Button
+            component={Link}
+            to="/recruiter"
+            variant="text"
+            color="secondary">
+            Recruiter
+          </Button>
+        </Box>
+        {!walletAddress ? (
+          <Button
+            onClick={() => {
+              connectToMetamask();
+            }}
+            color="secondary">
+            Connect to Metamask
+          </Button>
+        ) : (
+          <Tooltip
+            title={
+              <Typography
+                variant="body1"
+                // component="span"
+                sx={{ fontSize: "2rem" }}>
+                {balance} UNYT
+              </Typography>
+            }
+            open
+            arrow>
+            <Typography>{walletAddress}</Typography>
+          </Tooltip>
+        )}
+        <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+    </StyledAppBar>
   );
 };
 

@@ -20,13 +20,15 @@ import { useNavigate } from "react-router-dom";
 import { loginToLitNode } from "../components/litTest";
 import { ethers } from "ethers";
 import { Contract } from "web3-eth-contract";
+import Unyte from "../artifacts/Unyte.json";
+import Web3 from "web3";
+import { AbiItem } from "web3-utils";
 
 interface Data {
   id: number;
   name: string;
   value: number;
 }
-
 const data: Data[] = Array(10)
   .fill(0)
   .map((_, index) => ({
@@ -34,8 +36,8 @@ const data: Data[] = Array(10)
     name: `Item ${index + 1}`,
     value: 30,
   }));
-
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
+const CONTRACT_ADDRESS = "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6";
 
 const DaoWorker = () => {
   const [content, setContent] = useState([
@@ -45,114 +47,54 @@ const DaoWorker = () => {
       value: 10,
     },
   ]);
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [myWA, setMyWA] = useState<string | null>(null);
   const [contract, setContract] = useState<Contract>();
-  const [litNodeClient, setLitNodeClient] =
-    useState<LitJsSdk.LitNodeClient | null>(null);
   const [fetchedKeyList, setFetchedKeyList] = useState<string[]>([]);
   const [fetchedHashList, setFetchedHashList] = useState<string[]>([]);
-  const [fetchedEncryptedDataList, setFetchedEncryptedDataList] = useState<
-    string[]
-  >([]);
-  const [decryptedStringList, setDecryptedStringList] = useState<string[]>([]);
-  const [encryptedData, setEncryptedData] = useState<Blob | undefined>();
-  const [decryptedString, setDecryptedString] = useState<string | undefined>();
-  const [key, setKey] = useState<Uint8Array>();
 
-  const fetchHashFromContract = useCallback(async () => {
+  const connectMetamask = async () => {
+    const web3 = new Web3(Web3.givenProvider);
+    const accounts = await web3.eth.requestAccounts();
+    const account = accounts[0];
+    const contract = new web3.eth.Contract(
+      Unyte.abi as AbiItem[],
+      CONTRACT_ADDRESS
+    );
+    return contract;
+  };
+  const initializeWA = async () => {
+    if (window.ethereum) {
+      const res = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log(res[0]);
+      return res[0];
+    }
+  };
+  const fetchHashFromContract = async (
+    walletAddress: string,
+    contract: any
+  ) => {
     if (contract) {
-      // TODO: 取得の向け先を変更できるように
-      const resp = await contract.methods.getIpfsHashList(walletAddress).call();
-      console.log(resp);
-      setFetchedHashList(resp[1]);
-      setFetchedKeyList(resp[0]);
+      const res = await contract.methods.getIpfsHashList(walletAddress).call();
+      console.log(res);
+      return res;
     }
-  }, [contract]);
+  };
 
-  const accessControlConditions: any = [
-    {
-      contractAddress: "0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB",
-      standardContractType: "",
-      chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
-      method: "eth_getBalance",
-      parameters: [":userAddress", "latest"],
-      returnValueTest: {
-        comparator: ">=",
-        value: "0",
-      },
-    },
-  ];
-
-  const decrypt = useCallback(async () => {
-    if (litNodeClient && encryptedData) {
-      const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: "ethereum",
-      });
-
-      const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
-        accessControlConditions,
-        toDecrypt: LitJsSdk.uint8arrayToString(key, "base16"),
-        chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-        authSig,
-      });
-
-      const decryptedString = await LitJsSdk.decryptString(
-        encryptedData,
-        symmetricKeyFromNodes
-      );
-
-      setDecryptedString(decryptedString);
-    }
-  }, [encryptedData, key, litNodeClient]);
-
-  const fetchIpfsData = useCallback(async () => {
-    const promises = fetchedHashList.map(async (cid) => {
-      const response = await fetch(`https://ipfs.io/ipfs/${cid}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.text(); // Use response.json() if the data is in JSON format
-      return data;
-    });
-    const fetchedEncryptedDataList = await Promise.all(promises);
-    setFetchedEncryptedDataList(fetchedEncryptedDataList);
-  }, [fetchedHashList]);
-
-  useEffect(() => {
-    const getAccount = async () => {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          setWalletAddress(accounts[0]);
-        } catch (error) {
-          console.error("Error requesting accounts:", error);
-        }
-      } else {
-        alert("Metamaskがインストールされていません");
-      }
-    };
-
-    getAccount();
-  }, []);
   useEffect(() => {
     (async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-
-      // Execute steps
-      const litNodeClient = await loginToLitNode(signer);
-      setLitNodeClient(litNodeClient);
+      const contract = await connectMetamask();
+      setContract(contract);
+      const tmpWA = await initializeWA();
+      setMyWA(tmpWA);
+      const hashKeyKV = await fetchHashFromContract(tmpWA, contract);
+      const hashList = hashKeyKV[1];
+      setFetchedHashList(hashList);
+      const keyList = hashKeyKV[0];
+      setFetchedKeyList(keyList);
     })();
   }, []);
-
-  // useEffect(() => {
-  //   fetchHashFromContract()
-  //   fetchIpfsData()
-  //   decrypt()
-  //   console.log(decryptedString)
-  // })
 
   const [tips, setTips] = useState<number[]>(Array(content.length).fill(10));
   const tipItems = [{ value: 10 }, { value: 5 }, { value: 3 }, { value: 0 }];
