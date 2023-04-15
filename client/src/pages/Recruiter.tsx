@@ -60,7 +60,7 @@ const [searchWord, setSearchWord] = useState("")
   // ABIの参照
   const ContractABI = MyTokenFactoryContract.abi;
   // アドレス（Unyte：CELO）
-  const contractAddress = "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6";
+  const contractAddress = "0x396955CB5Eb4EdF050e0D2A19424c7E4Cb14bCEE";
   // 引数からMyTokenアドレスを取得する。
   const token = "0xffA3396D19c93017FfC175532E175F80496fe5C3";
 
@@ -117,7 +117,7 @@ const [searchWord, setSearchWord] = useState("")
           const web3 = new Web3(Web3.givenProvider);
           const contract = new web3.eth.Contract(
             Unyte.abi as AbiItem[],
-            "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
+            "0x396955CB5Eb4EdF050e0D2A19424c7E4Cb14bCEE"
           );
           setUnyteContract(contract);
         }
