@@ -35,9 +35,9 @@ async function uploadToIPFS(encryptedData: String) {
 
 const accessControlConditions = [
     {
-        contractAddress: '',
+        contractAddress: '0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB',
         standardContractType: '',
-        chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+        chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
         method: 'eth_getBalance',
         parameters: [
             ':userAddress',
@@ -137,12 +137,14 @@ const LitTest = () => {
 
     const saveOnContract = useCallback(async () => {
         if (contract && cid) {
+            // TODO: 評価の向け先を入力したwallet addressに変更できるように
             await contract.methods.setIpfsHash("0x24fA019F419811Dd5e62e4e0EFc62abCfb703494", cid).send({ from: account })
         }
     }, [account, cid, contract])
 
     const fetchHashFromContract = useCallback(async () => {
         if (contract) {
+            // TODO: 取得の向け先を変更できるように
             const resp = await contract.methods.getIpfsHashList("0x24fA019F419811Dd5e62e4e0EFc62abCfb703494").call()
             console.log(resp)
             setFetchedHashList(resp[1])
