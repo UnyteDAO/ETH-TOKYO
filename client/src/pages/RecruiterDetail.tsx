@@ -83,6 +83,7 @@ const Recruiter = () => {
         console.log(resp);
         fetchedHashList=resp[1];
         fetchedKeyList=resp[0];
+        console.log("key: ", fetchedKeyList)
       }
       console.log("1");
     };
@@ -144,6 +145,7 @@ const Recruiter = () => {
 }
 
   const [reviewList, setReviewList] = useState<any>([{id: 0, name: "name", good: "good", more: "more"}, {id: 1, name: "name", good: "good", more: "more"}, {id: 2, name: "name", good: "good", more: "more"}]);
+  
   const [fetchedKeyList, setFetchedKeyList] = useState<string[]>([]);
   const [fetchedHashList, setFetchedHashList] = useState<string[]>([]);
 
@@ -218,7 +220,7 @@ const Recruiter = () => {
         </Typography>
         <Grid container spacing={2}>
           {reviewList.map((item:any, index:number) => (
-            <Grid item xs={12} sm={6} md={6} key={item.id}>
+            <Grid item xs={12} sm={12} md={12} key={item.id}>
               <Paper elevation={2} sx={{ p: 2 }}>
                 <ListItem>
                   <ListItemAvatar sx={{ mr: 2 }}>
@@ -226,7 +228,7 @@ const Recruiter = () => {
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <Typography sx={{ color: "black"}}>{item.name}</Typography>
+                  <Typography sx={{ color: "black"}}>{fetchedKeyList[index]}</Typography>
                 </ListItem>
                 <Box>
                   <TextField
