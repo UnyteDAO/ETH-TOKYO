@@ -5,6 +5,7 @@ const theme = createTheme({
     allVariants: {
       color: "#ffffff",
     },
+    fontFamily: "Roboto, sans-serif",
   },
   palette: {
     primary: {
