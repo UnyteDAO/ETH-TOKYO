@@ -135,28 +135,6 @@ const Reviewer = () => {
     }
   }, [litNodeClient, formValues]);
 
-  const decrypt = useCallback(async () => {
-    if (litNodeClient && encryptedData) {
-      const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: "ethereum",
-      });
-
-      const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
-        accessControlConditions,
-        toDecrypt: LitJsSdk.uint8arrayToString(key, "base16"),
-        chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-        authSig,
-      });
-
-      const decryptedString = await LitJsSdk.decryptString(
-        encryptedData,
-        symmetricKeyFromNodes
-      );
-
-      setDecryptedString(decryptedString);
-    }
-  }, [encryptedData, key, litNodeClient]);
-
   const upload = useCallback(async () => {
     if (encryptedBinary && key) {
       const data = {
