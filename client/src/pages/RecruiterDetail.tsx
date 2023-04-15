@@ -145,7 +145,6 @@ const Recruiter = () => {
 }
 
   const [reviewList, setReviewList] = useState<any>([{id: 0, name: "name", good: "good", more: "more"}, {id: 1, name: "name", good: "good", more: "more"}, {id: 2, name: "name", good: "good", more: "more"}]);
-  // const [reviewList, setReviewList] = useState<any>([]);
   
   const [fetchedKeyList, setFetchedKeyList] = useState<string[]>([]);
   const [fetchedHashList, setFetchedHashList] = useState<string[]>([]);
