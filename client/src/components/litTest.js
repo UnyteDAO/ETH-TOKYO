@@ -61,19 +61,36 @@ async function encryptAndUploadToIPFS(litNodeClient, data) {
   //   },
   // ];
 
+  // const accessControlConditions = [
+  //   {
+  //     contractAddress: "",
+  //     standardContractType: "",
+  //     chain: "alfajores", // nothing actually lives on ethereum here, but we need to pass a chain
+  //     method: "eth_getBalance",
+  //     parameters: [":userAddress", "latest"],
+  //     returnValueTest: {
+  //       comparator: ">=",
+  //       value: "0",
+  //     },
+  //   },
+  // ];
+
+  // celoテストトークン
   const accessControlConditions = [
-    {
-      contractAddress: "",
-      standardContractType: "",
-      chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-      method: "eth_getBalance",
-      parameters: [":userAddress", "latest"],
-      returnValueTest: {
-        comparator: ">=",
-        value: "0",
-      },
-    },
-  ];
+  {
+    contractAddress: '0x636528ea30838AC129b7d4F6F7E8AB621Cd90CdD',
+    standardContractType: 'ERC20',
+    chain: "alfajores", 
+    method: 'balanceOf',
+    parameters: [
+      ':userAddress'
+    ],
+    returnValueTest: {
+      comparator: '>',
+      value: '0'
+    }
+  }
+]
 
   // store the access control conditions
   const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
