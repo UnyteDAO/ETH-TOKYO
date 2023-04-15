@@ -242,11 +242,11 @@ const DaoWorker = () => {
                         {item.value}
                       </Typography>
                     </Box>
-                    <Checkbox
+                    {/* <Checkbox
                       {...label}
                       defaultChecked
                       sx={{ "& .MuiSvgIcon-root": { fontSize: 28, marginRight: 5 } }}
-                    />
+                    /> */}
                   </Box>
                   <Checkbox
                     {...label}
