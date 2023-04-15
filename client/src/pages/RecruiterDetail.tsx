@@ -24,6 +24,7 @@ import MyTokenContract from '../artifacts/MyToken.json';
 import MyTokenFactoryContract from '../artifacts/MyTokenFactory.json';
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { loginToLitNode } from "../components/litTest";
+import { Console } from "console";
 
 interface Data {
   id: number;
@@ -53,6 +54,7 @@ const Recruiter = () => {
     setLitNodeClient(litNodeClient);
     // lit復号化のための処理
     // celoテストトークン
+    console.log(ethers.utils.parseEther("100").toString())
     const accessControlConditions = [
       {
         contractAddress: "0xffA3396D19c93017FfC175532E175F80496fe5C3",
@@ -62,7 +64,7 @@ const Recruiter = () => {
         parameters: [":userAddress"],
         returnValueTest: {
           comparator: ">",
-          value: "0",
+          value: "100",
         },
       },
     ];
@@ -197,7 +199,7 @@ const Recruiter = () => {
           console.error(error);
         }
       };
-      transfer(address, 10)
+      transfer(address, ethers.utils.parseEther("100"))
     }
   }
 
