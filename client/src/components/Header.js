@@ -99,7 +99,7 @@ const Header = () => {
                 variant="body1"
                 // component="span"
                 sx={{ fontSize: "2rem" }}>
-                {balance} UNYT
+                {parseFloat(balance).toFixed(1)} UNYT {/* 小数点第二位以下を切り捨て */}
               </Typography>
             }
             open
