@@ -26,7 +26,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/dao-worker" element={<DaoWorker />} />
           <Route path="/recruiter" element={<Recruiter />} />
-          <Route path="/recruiter/:itemId" element={<RecruiterDetail />} />
+          <Route path="/recruiter/:address" element={<RecruiterDetail />} />
           <Route path="/" element={<Reviewer />} />
           <Route path="/lit-test" element={<LitPage />} />
         </Routes>
