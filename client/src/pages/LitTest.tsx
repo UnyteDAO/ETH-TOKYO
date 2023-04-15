@@ -37,7 +37,7 @@ const accessControlConditions = [
     {
         contractAddress: '0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB',
         standardContractType: 'ERC20',
-        chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
+        chain: "137", // nothing actually lives on ethereum here, but we need to pass a chain
         method: 'balanceOf',
         parameters: [
             ':userAddress',
