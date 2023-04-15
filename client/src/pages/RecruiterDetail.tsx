@@ -141,7 +141,7 @@ const Recruiter = () => {
     await decrypt2();
 }
 
-  const [reviewList, setReviewList] = useState<any>([{id: 0, name: "name", good: "good", more: "more"}]);
+  const [reviewList, setReviewList] = useState<any>([{id: 0, name: "name", good: "good", more: "more"}, {id: 1, name: "name", good: "good", more: "more"}, {id: 2, name: "name", good: "good", more: "more"}]);
   const [fetchedKeyList, setFetchedKeyList] = useState<string[]>([]);
   const [fetchedHashList, setFetchedHashList] = useState<string[]>([]);
 
@@ -216,7 +216,7 @@ const Recruiter = () => {
         </Typography>
         <Grid container spacing={2}>
           {reviewList.map((item:any, index:number) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid item xs={12} sm={6} md={6} key={item.id}>
               <Paper elevation={2} sx={{ p: 2 }}>
                 <ListItem>
                   <ListItemAvatar sx={{ mr: 2 }}>
@@ -224,7 +224,7 @@ const Recruiter = () => {
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={item.name} />
+                  <Typography sx={{ color: "black"}}>{item.name}</Typography>
                 </ListItem>
                 <Box>
                   <TextField
@@ -232,7 +232,8 @@ const Recruiter = () => {
                     disabled
                     label="Good"
                     value={item.good}
-                    sx={{ my: 1 }}
+                    sx={{ my: 2 }}
+                    multiline rows={3}
                   />
                   <TextField
                     fullWidth
@@ -240,6 +241,7 @@ const Recruiter = () => {
                     label="More"
                     value={item.more}
                     sx={{ my: 1 }}
+                    multiline rows={3}
                   />
                 </Box>
                 <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
