@@ -26,15 +26,16 @@ export const uploadToIPFS = async (encryptedData: any) => {
   return path;
 };
 
+// celoテストトークン
 const accessControlConditions = [
   {
-    contractAddress: "",
-    standardContractType: "",
-    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-    method: "eth_getBalance",
-    parameters: [":userAddress", "latest"],
+    contractAddress: "0xffA3396D19c93017FfC175532E175F80496fe5C3",
+    standardContractType: "ERC20",
+    chain: "alfajores",
+    method: "balanceOf",
+    parameters: [":userAddress"],
     returnValueTest: {
-      comparator: ">=",
+      comparator: ">",
       value: "0",
     },
   },
