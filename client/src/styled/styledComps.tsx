@@ -12,6 +12,26 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
+export const DaoWorkerWrapper = styled(Box)`
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-top: 10vh;
+`;
+export const DaoWorkerTabWrapper = styled(Box)`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+`;
+export const DaoWorkerTab = styled(Box)`
+  width: 30%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+`;
+
 export const ReviewerInput = styled(TextField)`
   width: 100%;
 `;
