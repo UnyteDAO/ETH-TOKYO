@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, TextField, Button, Box, Grid } from '@mui/material';
+import { TextForm } from '../styled/styledComps';
 
 const Reviewer = () => {
   return (
@@ -15,10 +16,10 @@ const Reviewer = () => {
       >
         <Grid container justifyContent="center" alignItems="center" spacing={2} marginBottom={2}>
           <Grid item>
-            <Typography variant="h5">To</Typography>
+            <Typography variant="h5">To </Typography>
           </Grid>
           <Grid item xs={8}>
-            <TextField />
+            <TextForm/>
           </Grid>
         </Grid>
         <Grid container justifyContent="center" alignItems="center" spacing={2} marginBottom={2}>
@@ -26,7 +27,7 @@ const Reviewer = () => {
             <Typography variant="h5">Good</Typography>
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth multiline rows={2} />
+            <TextForm fullWidth multiline rows={2} />
           </Grid>
         </Grid>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
@@ -34,7 +35,7 @@ const Reviewer = () => {
             <Typography variant="h5">More</Typography>
           </Grid>
           <Grid item xs={8}>
-            <TextField fullWidth multiline rows={2} />
+            <TextForm fullWidth multiline rows={2} />
           </Grid>
         </Grid>
         <Box sx={{ mt: 3 }} alignItems="flex-end">

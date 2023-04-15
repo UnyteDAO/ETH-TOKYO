@@ -12,7 +12,7 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import { ListWrapperNoP, ListContent, Ucol, Urow } from "../styled/styledComps";
+import { ListWrapperNoP, ListContent, Ucol, Urow, TextForm } from "../styled/styledComps";
 import SearchIcon from "@mui/icons-material/Search";
 import FolderIcon from "@mui/icons-material/Folder";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,8 @@ import { useParams } from "react-router-dom";
 interface Data {
   id: number;
   name: string;
+  good: string;
+  more: string;
 }
 
 const data: Data[] = Array(10)
@@ -28,6 +30,8 @@ const data: Data[] = Array(10)
   .map((_, index) => ({
     id: index,
     name: `Item ${index + 1}`,
+    good: "good",
+    more: "more"
   }));
 
 const Recruiter = () => {
@@ -49,19 +53,20 @@ const Recruiter = () => {
           <List>
             {data.map((item, index) => (
               <ListItem key={item.id}>
-                <ListItemAvatar>
+                <ListItemAvatar sx={{ display: "flex", alignItems: "center"}}>
                   <Avatar>
                     <FolderIcon />
                   </Avatar>
+                  <p>{item.name}</p>
                 </ListItemAvatar>
                 <Ucol>
-                  <Urow>
+                  <Urow marginBottom={2}>
                     <p>Good: </p>
-                    <p>{item.name}</p>
+                    <TextForm fullWidth disabled={true} label={item.good} sx={{ m: 2}}/>
                   </Urow>
                   <Urow>
                     <p>More: </p>
-                    <p>{item.name}</p>
+                    <TextForm fullWidth disabled={true} label={item.more} sx={{ m: 2}}/>
                   </Urow>
                 </Ucol>
               </ListItem>

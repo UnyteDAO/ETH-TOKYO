@@ -8,6 +8,7 @@ import {
   CardContent,
   CardActions,
   Card,
+  Typography,
 } from "@mui/material";
 
 export const StyledButton = styled(Button)`
@@ -69,3 +70,7 @@ export const AuthCardActions = styled(CardActions)`
   display: flex;
   justify-content: center;
 `;
+
+export const TextForm = styled(TextField)`
+  background-color: white;
+`

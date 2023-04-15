@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  IconButton,
+} from "@mui/material";
 import { styled, createTheme } from "@mui/system";
 import iconWide from "../assets/icon_wide.png";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const StyledAppBar = styled(AppBar)(() => ({}));
 
@@ -51,6 +59,14 @@ const Header = () => {
         ) : (
           <Typography>{walletAddress}</Typography>
         )}
+        <IconButton
+          edge="end"
+          color="inherit"
+          aria-label="menu"
+          sx={{ ml: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
       </Toolbar>
     </StyledAppBar>
   );
