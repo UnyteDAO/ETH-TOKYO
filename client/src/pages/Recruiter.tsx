@@ -34,8 +34,9 @@ const Recruiter = () => {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const handleOpenPopup = () => {
+  const handleOpenPopup = (itemId: number) => {
     setIsPopupOpen(true);
+    // handleButtonClick(itemId);
   };
 
   const handleClosePopup = () => {
@@ -82,7 +83,7 @@ const Recruiter = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleButtonClick(item.id)}>
+                    onClick={() => handleOpenPopup(item.id)}>
                     Click me
                   </Button>
                   <DecryptoPopup

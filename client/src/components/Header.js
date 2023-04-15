@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { styled, createTheme } from "@mui/system";
+import iconWide from "../assets/icon_wide.png";
 
 const StyledAppBar = styled(AppBar)(() => ({}));
 
@@ -19,23 +20,24 @@ const Header = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (window.ethereum) {
-  //     window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
-  //       setWalletAddress(res[0]);
-  //     });
-  //   }
-  // });
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+        setWalletAddress(res[0]);
+      });
+    }
+  });
 
   return (
     <StyledAppBar position="static">
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <Button
-            onClick={() => navigate("/")}
-            color="inherit"
-            sx={{ textTransform: "none" }}>
-            <Typography variant="h6">Unyte</Typography>
+          <Button onClick={() => navigate("/")}>
+            <img
+              src={iconWide}
+              alt="Unyte"
+              style={{ height: "32px", width: "auto" }}
+            />
           </Button>
         </Box>
         {!walletAddress ? (
