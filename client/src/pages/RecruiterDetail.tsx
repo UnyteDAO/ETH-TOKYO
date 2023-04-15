@@ -70,7 +70,7 @@ const Recruiter = () => {
     let fetchedHashList: string[] = [];
     let fetchedKeyList: string[] = [];
     let fetchedEncryptedDataList: string[] = [];
-    let textList: string[] = [];
+    let textList:any = [];
 
     const fetchHashFromContract = async () => {
       if (contract) {
@@ -126,7 +126,8 @@ const Recruiter = () => {
             symmetricKeyFromNodes
           );
 
-          return decryptedString;
+          const result = JSON.parse(decryptedString);
+          return result;
         });
 
         textList = await Promise.all(promises);
