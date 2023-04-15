@@ -9,6 +9,7 @@ import RecruiterDetail from "./pages/RecruiterDetail";
 import Reviewer from "./pages/Reviewer";
 import Header from "./components/Header";
 import LitPage from "./pages/ListTest";
+import ContinuousTokenStream from "./pages/fluidTest.js";
 
 // This is a root context, if insert value to this, every component can use same data and update value
 // export const AuthContext = createContext({
@@ -29,6 +30,7 @@ const App: React.FC = () => {
           <Route path="/recruiter/:itemId" element={<RecruiterDetail />} />
           <Route path="/reviewer" element={<Reviewer />} />
           <Route path="/lit-test" element={<LitPage />} />
+          <Route path="/continuous-token-stream" element={<ContinuousTokenStream />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -8,3 +8,4 @@ typechain-types
 # Hardhat files
 cache
 artifacts/build-info
+hardhat.config.js
