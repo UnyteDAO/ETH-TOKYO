@@ -96,7 +96,7 @@ const Header = () => {
                 variant="body1"
                 // component="span"
                 sx={{ fontSize: "2rem" }}>
-                {parseInt(balance * 18)} UNYT
+                {balance} UNYT
               </Typography>
             }
             open
