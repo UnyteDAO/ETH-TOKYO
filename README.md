@@ -1,4 +1,4 @@
-###Challenge: "Trust" for work colleagues in anonymous economies
+### Challenge: "Trust" for work colleagues in anonymous economies
 - Trust is essential when requesting work in DAOs.
   - Does the person have the necessary skills to complete the task?
   - Can the person commit to a specific timeframe? etc.
@@ -7,13 +7,13 @@
   - ② Trusting the self-reported achievements and work products of the other person.
 - Method ① only applies to people within one's immediate circle, and method ② does not provide objective and reliable information.
 
-###Solution: A decentralized member evaluation system
+### Solution: A decentralized member evaluation system
 - A teammate of a user writes an evaluation.
 - The contents of the evaluation are encrypted and stored.
 - To confirm the evaluation, one can purchase a unique token and send it to the user's wallet, which allows the evaluation to be decrypted and viewed.
 - Those who disclose evaluations can return the tokens they receive to the community or the evaluator as a creator fee (similar to NFT creator fees).
 
-###Vision: A world where trust can be exchanged without trust
+### Vision: A world where trust can be exchanged without trust
 - A mechanism for transferring people's evaluations as "reliable information from a third party."
   - The person who wrote the evaluation is disclosed before purchase.
   - The specific contents of the evaluation and the evaluator are not linked (=who entered which evaluation remains unknown until the end).
@@ -21,7 +21,7 @@
   - Leaves no room for false self-reports.
   - A departure from the "honest person loses" world.
 
-###Specifications:
+### Specifications:
 - Features
   - Evaluator
     - Wallet connection
