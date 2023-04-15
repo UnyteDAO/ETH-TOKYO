@@ -20,6 +20,10 @@ module.exports = {
     celo: {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: ["0cb8aa4ff203eee33fd894bbc29a7cdbe56f2fd77eae7352ef5dc0b85b71290a"],
+    },
+    scroll: {
+      url: "https://scroll-alphanet.blastapi.io/052a318d-c7b1-450d-ac28-e6b73baa208b",
+      accounts: ["0cb8aa4ff203eee33fd894bbc29a7cdbe56f2fd77eae7352ef5dc0b85b71290a"],
     }
   },
 };
