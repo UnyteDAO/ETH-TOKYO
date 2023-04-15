@@ -31,6 +31,7 @@ const projectSecret = "1b8c0b6c542ea6beab46de4b4a7f69ca"; // <---------- your In
 // (for security concerns, consider saving these values in .env files)
 const auth =
   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
+const CONTRACT_ADDRESS = "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6";
 
 const accessControlConditions = [
   {
@@ -105,6 +106,31 @@ const Reviewer = () => {
     }
   };
 
+  const upload = useCallback(async (encryptedBinary: any, key: Uint8Array) => {
+    if (encryptedBinary && key) {
+      const data = {
+        encryptedText: encryptedBinary,
+        encryptedKey: key,
+      };
+      const cid = await uploadToIPFS(JSON.stringify(data));
+      console.log(cid);
+      setCid(cid);
+      return cid;
+    }
+  }, []);
+
+  const saveOnContract = useCallback(
+    async (cidresult: any) => {
+      if (contract && cidresult) {
+        // TODO: 評価の向け先を入力したwallet addressに変更できるように
+        await contract.methods
+          .setIpfsHash(targetWA, cidresult)
+          .send({ from: account });
+      }
+    },
+    [account, targetWA, contract]
+  );
+
   const submitReview = useCallback(async () => {
     if (litNodeClient) {
       const { encryptedData, symmetricKey } = await LitJsSdk.encryptString(
@@ -124,33 +150,13 @@ const Reviewer = () => {
       setEncryptedData(encryptedData);
       if (encryptedData) {
         const result = new Uint8Array(await encryptedData.arrayBuffer());
-        console.log(result)
+        console.log(result);
         setEncryptedBinary(result);
-        const cidresult = await upload(result);
+        const cidresult = await upload(result, encryptedSymmetricKey);
         await saveOnContract(cidresult);
       }
     }
-  }, [litNodeClient, formValues]);
-
-  const upload = useCallback(async (encryptedBinary:any) => {
-    if (encryptedBinary && key) {
-      const data = {
-        encryptedText: encryptedBinary,
-        encryptedKey: key,
-      };
-      const cid = await uploadToIPFS(JSON.stringify(data));
-      console.log(cid);
-      setCid(cid);
-      return(cid)
-    }
-  }, [encryptedBinary, key]);
-
-  const saveOnContract = useCallback(async (cidresult:any) => {
-    if (contract && cidresult) {
-      // TODO: 評価の向け先を入力したwallet addressに変更できるように
-      await contract.methods.setIpfsHash(targetWA, cidresult).send({ from: account });
-    }
-  }, [account, cid, contract]);
+  }, [litNodeClient, formValues, saveOnContract, upload]);
 
   const connectMetamask = useCallback(async () => {
     console.log("Welcome to MetaMask User🎉");
@@ -161,7 +167,7 @@ const Reviewer = () => {
     // setup instance to call contract with JSON RPC
     const contract = new web3.eth.Contract(
       Unyte.abi as AbiItem[],
-      "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
+      CONTRACT_ADDRESS
     );
     setContract(contract);
     setAccount(account);
@@ -228,6 +234,7 @@ const Reviewer = () => {
                   borderColor: "white",
                 },
               },
+              minWidth: "100px",
             }}
             name="rating"
             label="Rating"
