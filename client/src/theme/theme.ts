@@ -1,9 +1,14 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    allVariants: {
+      color: "#ffffff",
+    },
+  },
   palette: {
     primary: {
-      main: "#FF1493",
+      main: "#FF7F50",
     },
     background: {
       default: "#2D2943",

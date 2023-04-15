@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, TextField, Button, Box, Grid } from '@mui/material';
+import { TextForm } from '../styled/styledComps';
 
 const Reviewer = () => {
   return (
@@ -13,35 +14,31 @@ const Reviewer = () => {
           minHeight: '100vh',
         }}
       >
-        <Grid container justifyContent="center" alignItems="flex-start" spacing={2}>
+        <Grid container justifyContent="center" alignItems="center" spacing={2} marginBottom={2}>
+          <Grid item>
+            <Typography variant="h5">To </Typography>
+          </Grid>
           <Grid item xs={8}>
-            <Box sx={{ position: 'relative' }}>
-              <Typography variant="h5" sx={{ position: 'absolute', top: '-30px', left: '0px' }}>
-                To
-              </Typography>
-              <TextField fullWidth />
-            </Box>
+            <TextForm/>
           </Grid>
         </Grid>
-        <Box sx={{ mt: 3 }}>
-          <Grid container justifyContent="center" alignItems="center" spacing={2}>
-            <Grid item>
-              <Typography variant="h5">Good</Typography>
-            </Grid>
-            <Grid item>
-              <TextField />
-            </Grid>
+        <Grid container justifyContent="center" alignItems="center" spacing={2} marginBottom={2}>
+          <Grid item>
+            <Typography variant="h5">Good</Typography>
           </Grid>
-        </Box>
+          <Grid item xs={8}>
+            <TextForm fullWidth multiline rows={2} />
+          </Grid>
+        </Grid>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item>
             <Typography variant="h5">More</Typography>
           </Grid>
-          <Grid item>
-            <TextField />
+          <Grid item xs={8}>
+            <TextForm fullWidth multiline rows={2} />
           </Grid>
         </Grid>
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3 }} alignItems="flex-end">
           <Button variant="contained" size="large">Submit</Button>
         </Box>
       </Box>
