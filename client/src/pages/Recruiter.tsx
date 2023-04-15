@@ -12,7 +12,7 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import { ListWrapper, ListContent } from "../styled/styledComps";
+import { ListWrapper, ListContent, ReviewerInput } from "../styled/styledComps";
 import SearchIcon from "@mui/icons-material/Search";
 import FolderIcon from "@mui/icons-material/Folder";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ interface Data {
   id: number;
   name: string;
 }
+
 
 const data: Data[] = Array(10)
   .fill(0)
@@ -33,10 +34,12 @@ const data: Data[] = Array(10)
 const Recruiter = () => {
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+const [searchWord, setSearchWord] = useState("")
+
 
   const handleOpenPopup = (itemId: number) => {
     setIsPopupOpen(true);
-    // handleButtonClick(itemId);
+    
   };
 
   const handleClosePopup = () => {
@@ -45,9 +48,6 @@ const Recruiter = () => {
 
   const handleSearch = () => {
     console.log("Search clicked");
-  };
-  const handleButtonClick = (itemId: number) => {
-    navigate(`/recruiter/${itemId}`);
   };
 
   return (
@@ -67,11 +67,24 @@ const Recruiter = () => {
                 </InputAdornment>
               ),
             }}
+            sx={{
+              "& .MuiInputBase-input": {
+                color: "white",
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "white",
+                },
+              },
+            }}
+            value={searchWord}
+            onChange={(e) => {setSearchWord(e.target.value)}}
           />
         </Box>
         <Box>
           <List>
             {data.map((item) => (
+              <>
               <ListItem key={item.id}>
                 <ListItemAvatar>
                   <Avatar>
@@ -88,13 +101,16 @@ const Recruiter = () => {
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
+              <DecryptoPopup
+                isOpen={isPopupOpen}
+                onClose={handleClosePopup}
+                title="Sample Popup">
+                <p>購入して詳細画面に進みますか？</p>
+                <Button onClick={() => {navigate(`/recruiter/${item.id}`)}}>はい</Button>
+                <Button onClick={() => {setIsPopupOpen(false)}}>いいえ</Button>
+              </DecryptoPopup>
+              </>
             ))}
-            <DecryptoPopup
-              isOpen={isPopupOpen}
-              onClose={handleClosePopup}
-              title="Sample Popup">
-              <p>This is a sample reusable popup component.</p>
-            </DecryptoPopup>
           </List>
         </Box>
       </ListContent>
