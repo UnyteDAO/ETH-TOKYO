@@ -23,20 +23,19 @@ import Unyte from "../artifacts/Unyte.json";
 import { ethers } from "ethers";
 import { AbiItem } from "web3-utils";
 import Web3 from "web3";
-import Reviewer from './Reviewer';
 
-interface Data {
-  id: number;
-  name: string;
-}
+// interface Data {
+//   id: number;
+//   name: string;
+// }
 
 
-const data: Data[] = Array(10)
-  .fill(0)
-  .map((_, index) => ({
-    id: index,
-    name: `Item ${index + 1}`,
-  }));
+// const data: Data[] = Array(10)
+//   .fill(0)
+//   .map((_, index) => ({
+//     id: index,
+//     name: `Item ${index + 1}`,
+//   }));
 
 const Recruiter = () => {
   const navigate = useNavigate();
@@ -44,7 +43,7 @@ const Recruiter = () => {
 const [searchWord, setSearchWord] = useState("")
 
 
-  const handleOpenPopup = (itemId: number) => {
+  const handleOpenPopup = (address: string) => {
     setIsPopupOpen(true);
     
   };
@@ -206,12 +205,7 @@ const [searchWord, setSearchWord] = useState("")
                 </ListItemAvatar>
                 <ListItemText primary={item.name} />
                 <ListItemSecondaryAction>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleOpenPopup(item.id)}>
-                    Click me
-                  </Button>
+
                 </ListItemSecondaryAction>
               </ListItem>
               <DecryptoPopup
@@ -224,6 +218,14 @@ const [searchWord, setSearchWord] = useState("")
               </DecryptoPopup>
               </>
             ))}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleOpenPopup(token)}
+                sx={{ marginTop: 5 }}
+              >
+                Purchase
+              </Button>
           </List>
         </Box>
       </ListContent>
