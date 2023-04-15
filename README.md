@@ -1,52 +1,45 @@
-### 課題：匿名経済圏における仕事仲間への「トラスト」
+###Challenge: "Trust" for work colleagues in anonymous economies
+- Trust is essential when requesting work in DAOs.
+  - Does the person have the necessary skills to complete the task?
+  - Can the person commit to a specific timeframe? etc.
+- Currently, there are only two ways to determine someone's trustworthiness:
+  - ① Confirming a team member's activities and evaluations from previous projects
+  - ② Trusting the self-reported achievements and work products of the other person.
+- Method ① only applies to people within one's immediate circle, and method ② does not provide objective and reliable information.
 
-- DAOにおける業務の依頼において相手へのトラストが必要になる
-    - 依頼した仕事をこなすスキルを持っているか
-    - 時間をとってコミットしてもらえるか　etc..
-- 現状相手の信頼度を確かめる方法は以下2つ
-    - ①他プロジェクトでの活動内容や評価をチームメイトに確認
-    - ②自己申告による相手の実績や成果物を信頼
-- ①は身の回りの一部の人にしか適用できず、②では客観的に信頼できる情報は得られない
+###Solution: A decentralized member evaluation system
+- A teammate of a user writes an evaluation.
+- The contents of the evaluation are encrypted and stored.
+- To confirm the evaluation, one can purchase a unique token and send it to the user's wallet, which allows the evaluation to be decrypted and viewed.
+- Those who disclose evaluations can return the tokens they receive to the community or the evaluator as a creator fee (similar to NFT creator fees).
 
-### 解決策：分散型メンバー評価システム
+###Vision: A world where trust can be exchanged without trust
+- A mechanism for transferring people's evaluations as "reliable information from a third party."
+  - The person who wrote the evaluation is disclosed before purchase.
+  - The specific contents of the evaluation and the evaluator are not linked (=who entered which evaluation remains unknown until the end).
+- By collecting fair evaluations from work partners, a world where DAOs and project launches can judge "Who should we entrust with this work?" fairly can be realized.
+  - Leaves no room for false self-reports.
+  - A departure from the "honest person loses" world.
 
-- あるユーザーのチームメイトである人が評価を書き込む
-- 評価の内容は暗号化され保存される
-- 評価を確認したい人は、独自トークンを購入して対象ユーザーのウォレットへ送付することでその人への評価を復号して確認できる
-- 評価を開示した側は、得られたトークンをコミュニティや評価の記録者に還元できる
-    
-    (NFTのクリエイターフィーのようなもの)
-    
-
-### ビジョン：トラストをトラストレスにやり取りできる世界
-
-- 人々の評価を「第三者による信頼できる情報」として移動できる仕組み
-    - どのメンバーが評価を記入したかは購入前に開示されている
-    - 具体的な評価内容と評価者は紐づかない（＝誰がどの評価を入れたかは最後まで不明）
-- 仕事相手からのフェアな評価が集まることで、DAOやプロジェクト立ち上げ時「この仕事を誰に任せるか？」のジャッジを公正に行える世界を実現する
-    - 自己による虚偽報告の介在余地を残さない
-    - 「正直者が馬鹿を見る」世界からの脱却
-
-### 仕様：
-
-- 機能
-    - 評価者
-        - ウォレット接続
-        - 特定のアドレスに対するメッセージの記入
-        - メッセージの暗号化とipfsへの保存
-        - ipfsハッシュ値のチェーン上への保存
-    - 閲覧者
-        - ウォレット接続
-        - 特定のERC20トークンの所有確認
-        - トークンの閲覧対象者への送付(approve)
-        - ipfsに保存された評価の復号と閲覧
-    - 評価対象者
-        - 自身へ届いている評価をしてくれたアドレスの確認
-        - アドレスの承認（見知らぬアドレスに悪い評価をつけられることを防止）
-        - トークン受取時の評価一覧者へのフィー設定
-- テックスタック
-    - 暗号化・復号化→Lit protocol
-    - チェーン上へのデータ保存→Scroll
-    - ERC20トークンの発行と所有量確認→Scroll
-        - ここは可能であればSuperfluidにしたい
-        - Superfluidでサブスクを払い続けている間はデータが見られるという状況
+###Specifications:
+- Features
+  - Evaluator
+    - Wallet connection
+    - Writing messages to specific addresses
+    - Encrypting messages and saving them to IPFS
+    - Saving IPFS hash values on the chain
+  - Viewer
+    - Wallet connection
+    - Confirmation of ownership of a specific ERC20 token
+    - Sending the token to the evaluation target for viewing (approve)
+    - Decrypting and viewing evaluations saved in IPFS
+  - Evaluation target
+    - Checking the addresses that sent evaluations
+    - Approving addresses (to prevent negative evaluations from unknown addresses)
+    - Fee setting for evaluators who receive tokens
+  - Tech Stack
+    - Encryption/Decryption: Lit Protocol
+    - Data storage on the chain: Scroll
+    - Issuance and ownership confirmation of ERC20 tokens: Scroll
+      - If possible, we want to use Superfluid here.
+      - Paying a subscription fee with Superfluid...
