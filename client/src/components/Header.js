@@ -14,6 +14,7 @@ import iconWide from "../assets/icon_wide.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, createTheme } from "@mui/system";
 import { getTokenBalance } from "../actions/contractActions";
+import { HeaderW } from "../styled/styledComps";
 
 const StyledAppBar = styled(AppBar)(() => ({
   position: "sticky",
@@ -56,62 +57,52 @@ const Header = () => {
   }, []);
 
   return (
-    <StyledAppBar position="fixed">
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
-          <Button onClick={() => navigate("/")}>
-            <img
-              src={iconWide}
-              alt="Unyte"
-              style={{ height: "32px", width: "auto" }}
-            />
-          </Button>
-          <Button component={Link} to="/" variant="text" color="secondary">
-            Reviewer
-          </Button>
-          <Button
-            component={Link}
-            to="/dao-worker"
-            variant="text"
-            color="secondary">
-            Dao Worker
-          </Button>
-          <Button
-            component={Link}
-            to="/recruiter"
-            variant="text"
-            color="secondary">
-            Recruiter
-          </Button>
-        </Box>
-        {!walletAddress ? (
-          <Button
-            onClick={() => {
-              connectToMetamask();
-            }}
-            color="secondary">
-            Connect to Metamask
-          </Button>
-        ) : (
-          <Tooltip
-            title={
-              <Typography
-                variant="body1"
-                // component="span"
-                sx={{ fontSize: "2rem" }}>
-                {balance ? parseFloat(balance).toFixed(1) : 0} UNYT {/* NaNを0に変更 */}
-              </Typography>
-            }
-            open
-            arrow>
-            <Typography>{walletAddress}</Typography>
-          </Tooltip>
-        )}
-        <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-    </StyledAppBar>
+    <HeaderW>
+      <Button onClick={() => navigate("/")}>
+        <img
+          src={iconWide}
+          HeaderW="Unyte"
+          style={{ height: "32px", width: "auto" }}
+        />
+      </Button>
+      <Button component={Link} to="/" variant="text" color="secondary">
+        Reviewer
+      </Button>
+      <Button
+        component={Link}
+        to="/dao-worker"
+        variant="text"
+        color="secondary">
+        Dao Worker
+      </Button>
+      <Button component={Link} to="/recruiter" variant="text" color="secondary">
+        Recruiter
+      </Button>
+      {!walletAddress ? (
+        <Button
+          onClick={() => {
+            connectToMetamask();
+          }}
+          color="secondary">
+          Connect to Metamask
+        </Button>
+      ) : (
+        <Tooltip
+          title={
+            <Typography
+              variant="body1"
+              // component="span"
+              sx={{ fontSize: "2rem" }}>
+              {balance ? parseFloat(balance).toFixed(1) : 0} UNYT{" "}
+              {/* NaNを0に変更 */}
+            </Typography>
+          }
+          open
+          arrow>
+          <Typography>{walletAddress}</Typography>
+        </Tooltip>
+      )}
+    </HeaderW>
   );
 };
 

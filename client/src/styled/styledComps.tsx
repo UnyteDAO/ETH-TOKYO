@@ -12,9 +12,17 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 
+export const HeaderW = styled(Box)`
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  position: static;
+  border-right: 1px solid white;
+`;
 export const DaoWorkerWrapper = styled(Box)`
-  max-width: 960px;
-  margin: 0 auto;
+  width: 85vw;
   min-height: 100vh;
   padding-top: 10vh;
 `;
@@ -73,7 +81,7 @@ export const ListWrapperNoP = styled(Box)`
 `;
 
 export const CenterWrapperNoP = styled(Box)`
-  width: 100vw;
+  width: 85vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;

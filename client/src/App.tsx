@@ -9,6 +9,7 @@ import RecruiterDetail from "./pages/RecruiterDetail";
 import Reviewer from "./pages/Reviewer";
 import Header from "./components/Header";
 import LitPage from "./pages/LitTest";
+import { Urow } from "./styled/styledComps";
 
 // This is a root context, if insert value to this, every component can use same data and update value
 // export const AuthContext = createContext({
@@ -22,14 +23,16 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/dao-worker" element={<DaoWorker />} />
-          <Route path="/recruiter" element={<Recruiter />} />
-          <Route path="/recruiter/:address" element={<RecruiterDetail />} />
-          <Route path="/" element={<Reviewer />} />
-          <Route path="/lit-test" element={<LitPage />} />
-        </Routes>
+        <Urow>
+          <Header />
+          <Routes>
+            <Route path="/dao-worker" element={<DaoWorker />} />
+            <Route path="/recruiter" element={<Recruiter />} />
+            <Route path="/recruiter/:address" element={<RecruiterDetail />} />
+            <Route path="/" element={<Reviewer />} />
+            <Route path="/lit-test" element={<LitPage />} />
+          </Routes>
+        </Urow>
       </BrowserRouter>
     </ThemeProvider>
   );
