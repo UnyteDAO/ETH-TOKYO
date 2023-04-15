@@ -6,12 +6,16 @@
   - ① Confirming a team member's activities and evaluations from previous projects
   - ② Trusting the self-reported achievements and work products of the other person.
 - Method ① only applies to people within one's immediate circle, and method ② does not provide objective and reliable information.
+![image](https://user-images.githubusercontent.com/40339533/232256784-0e0e5d94-9af3-446f-9c35-358a95c7a195.png)
+
 
 ### Solution: A decentralized member evaluation system
 - A teammate of a user writes an evaluation.
 - The contents of the evaluation are encrypted and stored.
 - To confirm the evaluation, one can purchase a unique token and send it to the user's wallet, which allows the evaluation to be decrypted and viewed.
 - Those who disclose evaluations can return the tokens they receive to the community or the evaluator as a creator fee (similar to NFT creator fees).
+![image](https://user-images.githubusercontent.com/40339533/232256793-c1c6b6fc-5909-4dac-b32b-b2363b33cc27.png)
+
 
 ### Vision: A world where trust can be exchanged without trust
 - A mechanism for transferring people's evaluations as "reliable information from a third party."
@@ -20,6 +24,7 @@
 - By collecting fair evaluations from work partners, a world where DAOs and project launches can judge "Who should we entrust with this work?" fairly can be realized.
   - Leaves no room for false self-reports.
   - A departure from the "honest person loses" world.
+![image](https://user-images.githubusercontent.com/40339533/232256813-fc61d62b-7050-45f2-b1bb-d5965c859c2c.png)
 
 ### Specifications:
 - Features
