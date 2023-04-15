@@ -10,6 +10,22 @@ import {
   Card,
   Typography,
 } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
+
+export const ReviewerInput = styled(TextField)`
+  width: 100%;
+`;
+
+export const Grid2With960W = styled(Grid2)`
+  max-width: 960px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Grid2With960W2 = styled(Grid2)`
+  max-width: 960px;
+  display: flex;
+`;
 
 export const StyledButton = styled(Button)`
   background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
@@ -34,6 +50,14 @@ export const ListWrapperNoP = styled(Box)`
   min-height: 100vh;
   display: flex;
   justify-content: center;
+`;
+
+export const CenterWrapperNoP = styled(Box)`
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ListContent = styled(Box)`
@@ -73,4 +97,4 @@ export const AuthCardActions = styled(CardActions)`
 
 export const TextForm = styled(TextField)`
   background-color: white;
-`
+`;

@@ -40,7 +40,7 @@ const accessControlConditions = [
   },
 ];
 
-const LitTest = () => {
+export const LitTest = () => {
   const [litNodeClient, setLitNodeClient] =
     useState<LitJsSdk.LitNodeClient | null>(null);
   const [text, setText] = useState("");
@@ -104,5 +104,3 @@ const LitTest = () => {
     }
   }, [encryptedData, key, litNodeClient]);
 };
-
-export default LitTest;

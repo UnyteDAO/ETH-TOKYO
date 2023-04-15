@@ -52,7 +52,7 @@ const Header = () => {
   }, []);
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="fixed">
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
           <Button onClick={() => navigate("/")}>
@@ -86,12 +86,7 @@ const Header = () => {
             <Typography>{walletAddress}</Typography>
           </Tooltip>
         )}
-        <IconButton
-          edge="end"
-          color="inherit"
-          aria-label="menu"
-          sx={{ ml: 2 }}
-        >
+        <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
           <MenuIcon />
         </IconButton>
       </Toolbar>
