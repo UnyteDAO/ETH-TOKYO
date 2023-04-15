@@ -8,7 +8,7 @@ import Recruiter from "./pages/Recruiter";
 import RecruiterDetail from "./pages/RecruiterDetail";
 import Reviewer from "./pages/Reviewer";
 import Header from "./components/Header";
-import LitPage from "./pages/ListTest";
+import LitPage from "./pages/LitTest";
 
 // This is a root context, if insert value to this, every component can use same data and update value
 // export const AuthContext = createContext({
