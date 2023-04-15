@@ -47,33 +47,33 @@ async function encryptAndUploadToIPFS(litNodeClient, data) {
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain: "ethereum" });
   console.log("authSig: ", authSig);
 
-  // var accessControlConditions = [
-  //   {
-  //     contractAddress: "ipfs://QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY",
-  //     standardContractType: "LitAction",
-  //     chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-  //     method: "go",
-  //     parameters: ["40"],
-  //     returnValueTest: {
-  //       comparator: "=",
-  //       value: "true",
-  //     },
-  //   },
-  // ];
-
-  const accessControlConditions = [
+  var accessControlConditions = [
     {
-      contractAddress: "",
-      standardContractType: "",
+      contractAddress: "ipfs://QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY",
+      standardContractType: "LitAction",
       chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-      method: "eth_getBalance",
-      parameters: [":userAddress", "latest"],
+      method: "go",
+      parameters: ["40"],
       returnValueTest: {
-        comparator: ">=",
-        value: "0",
+        comparator: "=",
+        value: "true",
       },
     },
   ];
+
+  // const accessControlConditions = [
+  //   {
+  //     contractAddress: "",
+  //     standardContractType: "",
+  //     chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+  //     method: "eth_getBalance",
+  //     parameters: [":userAddress", "latest"],
+  //     returnValueTest: {
+  //       comparator: ">=",
+  //       value: "0",
+  //     },
+  //   },
+  // ];
 
   // store the access control conditions
   const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
