@@ -32,15 +32,15 @@ const projectSecret = "1b8c0b6c542ea6beab46de4b4a7f69ca"; // <---------- your In
 const auth =
   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
-const accessControlConditions: any = [
+const accessControlConditions = [
   {
-    contractAddress: "0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB",
-    standardContractType: "",
-    chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
-    method: "eth_getBalance",
-    parameters: [":userAddress", "latest"],
+    contractAddress: "0xffA3396D19c93017FfC175532E175F80496fe5C3",
+    standardContractType: "ERC20",
+    chain: "alfajores",
+    method: "balanceOf",
+    parameters: [":userAddress"],
     returnValueTest: {
-      comparator: ">=",
+      comparator: ">",
       value: "0",
     },
   },
@@ -124,14 +124,15 @@ const Reviewer = () => {
       setEncryptedData(encryptedData);
       if (encryptedData) {
         const result = new Uint8Array(await encryptedData.arrayBuffer());
+        console.log(result)
         setEncryptedBinary(result);
-        await upload();
-        await saveOnContract();
+        const cidresult = await upload(result);
+        await saveOnContract(cidresult);
       }
     }
   }, [litNodeClient, formValues]);
 
-  const upload = useCallback(async () => {
+  const upload = useCallback(async (encryptedBinary:any) => {
     if (encryptedBinary && key) {
       const data = {
         encryptedText: encryptedBinary,
@@ -140,13 +141,14 @@ const Reviewer = () => {
       const cid = await uploadToIPFS(JSON.stringify(data));
       console.log(cid);
       setCid(cid);
+      return(cid)
     }
   }, [encryptedBinary, key]);
 
-  const saveOnContract = useCallback(async () => {
-    if (contract && cid) {
+  const saveOnContract = useCallback(async (cidresult:any) => {
+    if (contract && cidresult) {
       // TODO: 評価の向け先を入力したwallet addressに変更できるように
-      await contract.methods.setIpfsHash(targetWA, cid).send({ from: account });
+      await contract.methods.setIpfsHash(targetWA, cidresult).send({ from: account });
     }
   }, [account, cid, contract]);
 
@@ -159,7 +161,7 @@ const Reviewer = () => {
     // setup instance to call contract with JSON RPC
     const contract = new web3.eth.Contract(
       Unyte.abi as AbiItem[],
-      "0x8745C780Ee53339A0c4A5fB97B6CDbE23ae9925c"
+      "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
     );
     setContract(contract);
     setAccount(account);

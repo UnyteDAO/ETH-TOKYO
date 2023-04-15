@@ -213,7 +213,7 @@ const [searchWord, setSearchWord] = useState("")
                 onClose={handleClosePopup}
                 title="Sample Popup">
                 <p>購入して詳細画面に進みますか？</p>
-                <Button onClick={() => {navigate(`/recruiter/${item.id}`)}}>はい</Button>
+                <Button onClick={() => {navigate(`/recruiter/${searchWord}`)}}>はい</Button>
                 <Button onClick={() => {setIsPopupOpen(false)}}>いいえ</Button>
               </DecryptoPopup>
               </>
