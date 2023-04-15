@@ -36,11 +36,19 @@
     - Writing messages to specific addresses
     - Encrypting messages and saving them to IPFS
     - Saving IPFS hash values on the chain
+    - ![image](https://user-images.githubusercontent.com/40339533/232257526-cf381e5b-e6af-4793-855b-2852041864c9.png)
+
   - Viewer
     - Wallet connection
     - Confirmation of ownership of a specific ERC20 token
     - Sending the token to the evaluation target for viewing (approve)
     - Decrypting and viewing evaluations saved in IPFS
+    - ![image](https://user-images.githubusercontent.com/40339533/232257695-0b6426a4-c294-4a82-82f7-68ceb5e68cb8.png)
+    - ![image](https://user-images.githubusercontent.com/40339533/232257793-45398f15-cd5f-42e6-a52e-77cc615f869a.png)
+    - ![image](https://user-images.githubusercontent.com/40339533/232257809-bb7c0a34-dda6-4064-9874-d7063fb8e478.png)
+
+
+
   - Evaluation target
     - Checking the addresses that sent evaluations
     - Approving addresses (to prevent negative evaluations from unknown addresses)
