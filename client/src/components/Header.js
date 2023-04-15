@@ -6,17 +6,20 @@ import {
   Typography,
   Button,
   Box,
+  Tooltip,
   IconButton,
 } from "@mui/material";
-import { styled, createTheme } from "@mui/system";
 import iconWide from "../assets/icon_wide.png";
 import MenuIcon from "@mui/icons-material/Menu";
+import { styled, createTheme } from "@mui/system";
+import { getTokenBalance } from "../actions/contractActions";
 
 const StyledAppBar = styled(AppBar)(() => ({}));
 
 const Header = () => {
   const navigate = useNavigate();
   const [walletAddress, setWalletAddress] = useState(null);
+  const [balance, setBalance] = useState(null);
 
   const connectToMetamask = () => {
     if (window.ethereum) {
@@ -29,12 +32,24 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
-        setWalletAddress(res[0]);
-      });
-    }
-  });
+    const fetchData = async () => {
+      if (window.ethereum) {
+        window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((res) => {
+            setWalletAddress(res[0]);
+          });
+      }
+      try {
+        const res = await getTokenBalance();
+        setBalance(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <StyledAppBar position="static">
@@ -57,7 +72,19 @@ const Header = () => {
             Connect to Metamask
           </Button>
         ) : (
-          <Typography>{walletAddress}</Typography>
+          <Tooltip
+            title={
+              <Typography
+                variant="body1"
+                // component="span"
+                sx={{ fontSize: "2rem" }}>
+                {parseInt(balance * 18)} UNYT
+              </Typography>
+            }
+            open
+            arrow>
+            <Typography>{walletAddress}</Typography>
+          </Tooltip>
         )}
         <IconButton
           edge="end"
