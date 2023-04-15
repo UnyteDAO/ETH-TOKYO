@@ -33,15 +33,16 @@ async function uploadToIPFS(encryptedData: String) {
   return cid.toString();
 }
 
-const accessControlConditions: any = [
+// celoテストトークン
+const accessControlConditions = [
   {
-    contractAddress: "0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB",
-    standardContractType: "",
-    chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
-    method: "eth_getBalance",
-    parameters: [":userAddress", "latest"],
+    contractAddress: "0xffA3396D19c93017FfC175532E175F80496fe5C3",
+    standardContractType: "ERC20",
+    chain: "alfajores",
+    method: "balanceOf",
+    parameters: [":userAddress"],
     returnValueTest: {
-      comparator: ">=",
+      comparator: ">",
       value: "0",
     },
   },
@@ -91,7 +92,7 @@ const LitTest = () => {
         accessControlConditions,
         symmetricKey,
         authSig,
-        chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+        chain: "alfajores", // nothing actually lives on ethereum here, but we need to pass a chain
       });
       console.log("encryptedSymmetricKey", encryptedSymmetricKey);
       setKey(encryptedSymmetricKey);
@@ -206,6 +207,28 @@ const LitTest = () => {
       setDecryptedStringList(textList);
     }
   }, [fetchedEncryptedDataList, litNodeClient]);
+
+  // const connectMetamask = useCallback(async () => {
+  //     console.log("Welcome to MetaMask User🎉");
+  //     const web3 = new Web3(Web3.givenProvider);
+  //     // connect with metamask wallet
+  //     const accounts = await web3.eth.requestAccounts();
+  //     const account = accounts[0];
+
+  //     // setup instance to call contract with JSON RPC
+  //     // 変更：Scroll→CELO testnet
+  //     const contract = new web3.eth.Contract(
+  //         Unyte.abi as AbiItem[],
+  //         "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
+  //     );
+
+  //     return decryptedString;
+  //   });
+
+  //     const textList = await Promise.all(promises);
+  //     setDecryptedStringList(textList);
+  //   }
+  // }, [fetchedEncryptedDataList, litNodeClient]);
 
   const connectMetamask = useCallback(async () => {
     console.log("Welcome to MetaMask User🎉");
