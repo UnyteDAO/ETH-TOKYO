@@ -64,7 +64,7 @@ const Recruiter = () => {
         parameters: [":userAddress"],
         returnValueTest: {
           comparator: ">",
-          value: "100000000000",
+          value: "100",
         },
       },
     ];
