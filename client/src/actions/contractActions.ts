@@ -1,9 +1,48 @@
 import Web3 from "web3";
 import detectEthereumProvider from "@metamask/detect-provider";
-import ABI from "../../../blockchain/artifacts/contracts/Unyte.sol/Unyte.json";
+import ABI from "./Unyte.json";
 
 const CONTRACT_ADDRESS = "0x23BA45ED0FFE9617d133630c4bd655131c175093";
+const SCHROLL_ADDRESS = "0x636528ea30838AC129b7d4F6F7E8AB621Cd90CdD";
 const UNYTE_ABI: any = ABI;
+const MIN_ABI: any = [
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+      },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+];
+
+export const getTokenBalance = async () => {
+  // detectEthereumProvider provider
+  const provider: any = await detectEthereumProvider();
+  if (provider) {
+    // new instance of web3
+    const web3 = new Web3(Web3.givenProvider);
+    const accounts = await provider.request({ method: "eth_requestAccounts" });
+    const wallet = accounts[0]; // user's wallet address
+    const contract = new web3.eth.Contract(MIN_ABI, SCHROLL_ADDRESS);
+    const res = await contract.methods.balanceOf(wallet).call();
+    const format = web3.utils.fromWei(res);
+    return format;
+  } else {
+    console.error("Please install MetaMask!");
+  }
+};
 
 export const setIpfsHash = async () => {
   // detectEthereumProvider provider

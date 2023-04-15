@@ -86,15 +86,15 @@ const Recruiter = () => {
                     onClick={() => handleOpenPopup(item.id)}>
                     Click me
                   </Button>
-                  <DecryptoPopup
-                    isOpen={isPopupOpen}
-                    onClose={handleClosePopup}
-                    title="Sample Popup">
-                    <p>This is a sample reusable popup component.</p>
-                  </DecryptoPopup>
                 </ListItemSecondaryAction>
               </ListItem>
             ))}
+            <DecryptoPopup
+              isOpen={isPopupOpen}
+              onClose={handleClosePopup}
+              title="Sample Popup">
+              <p>This is a sample reusable popup component.</p>
+            </DecryptoPopup>
           </List>
         </Box>
       </ListContent>
