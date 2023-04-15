@@ -6,6 +6,7 @@
   - ① Confirming a team member's activities and evaluations from previous projects
   - ② Trusting the self-reported achievements and work products of the other person.
 - Method ① only applies to people within one's immediate circle, and method ② does not provide objective and reliable information.
+- Method ②Trusting self-reported achievements and outcomes
 ![image](https://user-images.githubusercontent.com/40339533/232256784-0e0e5d94-9af3-446f-9c35-358a95c7a195.png)
 
 
@@ -15,6 +16,8 @@
 - To confirm the evaluation, one can purchase a unique token and send it to the user's wallet, which allows the evaluation to be decrypted and viewed.
 - Those who disclose evaluations can return the tokens they receive to the community or the evaluator as a creator fee (similar to NFT creator fees).
 ![image](https://user-images.githubusercontent.com/40339533/232256793-c1c6b6fc-5909-4dac-b32b-b2363b33cc27.png)
+
+![image](https://user-images.githubusercontent.com/40339533/232257266-b5a9aad9-c951-4376-ad6f-d3518f69b178.png)
 
 
 ### Vision: A world where trust can be exchanged without trust
