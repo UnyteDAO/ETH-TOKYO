@@ -15,21 +15,21 @@ const Reviewer = () => {
       >
         <Grid container justifyContent="center" alignItems="flex-start" spacing={2}>
           <Grid item xs={8}>
-            <Box sx={{ position: 'relative' }}>
-              <Typography variant="h5" sx={{ position: 'absolute', top: '-30px', left: '0px' }}>
+            <Box>
+              <Typography variant="h5">
                 To
               </Typography>
               <TextField fullWidth />
             </Box>
           </Grid>
         </Grid>
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3 }} marginBottom={2}>
           <Grid container justifyContent="center" alignItems="center" spacing={2}>
             <Grid item>
               <Typography variant="h5">Good</Typography>
             </Grid>
-            <Grid item>
-              <TextField />
+            <Grid item xs={8}>
+              <TextField fullWidth />
             </Grid>
           </Grid>
         </Box>
@@ -37,8 +37,8 @@ const Reviewer = () => {
           <Grid item>
             <Typography variant="h5">More</Typography>
           </Grid>
-          <Grid item>
-            <TextField />
+          <Grid item xs={8}>
+            <TextField fullWidth />
           </Grid>
         </Grid>
         <Box sx={{ mt: 3 }}>
