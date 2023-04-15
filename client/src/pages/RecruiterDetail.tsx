@@ -37,7 +37,7 @@ const Recruiter = () => {
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Item ID: {itemId}
+          Address: {itemId}
         </Typography>
         <Grid container spacing={2}>
           {data.map((item, index) => (

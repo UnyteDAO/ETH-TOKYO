@@ -14,7 +14,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { styled, createTheme } from "@mui/system";
 import { getTokenBalance } from "../actions/contractActions";
 
-const StyledAppBar = styled(AppBar)(() => ({}));
+const StyledAppBar = styled(AppBar)(() => ({
+  position: "sticky",
+  top: 0,
+}));
 
 const Header = () => {
   const navigate = useNavigate();
@@ -52,45 +55,48 @@ const Header = () => {
   }, []);
 
   return (
-    <StyledAppBar position="fixed">
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>
-          <Button onClick={() => navigate("/")}>
-            <img
-              src={iconWide}
-              alt="Unyte"
-              style={{ height: "32px", width: "auto" }}
-            />
-          </Button>
-        </Box>
-        {!walletAddress ? (
-          <Button
-            onClick={() => {
-              connectToMetamask();
-            }}
-            color="secondary">
-            Connect to Metamask
-          </Button>
-        ) : (
-          <Tooltip
-            title={
-              <Typography
-                variant="body1"
-                // component="span"
-                sx={{ fontSize: "2rem" }}>
-                {parseInt(balance * 18)} UNYT
-              </Typography>
-            }
-            open
-            arrow>
-            <Typography>{walletAddress}</Typography>
-          </Tooltip>
-        )}
-        <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-    </StyledAppBar>
+    <>
+      <StyledAppBar position="fixed">
+        <Toolbar>
+          <Box sx={{ flexGrow: 1 }}>
+            <Button onClick={() => navigate("/")}>
+              <img
+                src={iconWide}
+                alt="Unyte"
+                style={{ height: "32px", width: "auto" }}
+              />
+            </Button>
+          </Box>
+          {!walletAddress ? (
+            <Button
+              onClick={() => {
+                connectToMetamask();
+              }}
+              color="secondary">
+              Connect to Metamask
+            </Button>
+          ) : (
+            <Tooltip
+              title={
+                <Typography
+                  variant="body1"
+                  // component="span"
+                  sx={{ fontSize: "2rem" }}>
+                  {parseInt(balance * 18)} UNYT
+                </Typography>
+              }
+              open
+              arrow>
+              <Typography>{walletAddress}</Typography>
+            </Tooltip>
+          )}
+          <IconButton edge="end" color="inherit" aria-label="menu" sx={{ ml: 2 }}>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </StyledAppBar>
+      <Box sx={{ paddingTop: "64px" }} /> {/* ヘッダー下のスペースを確保 */}
+    </>
   );
 };
 
