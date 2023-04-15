@@ -5,24 +5,25 @@ pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 
 contract Unyte {
-    mapping(address => mapping(address => bytes32)) internal ipfsHashStorage;
+    mapping(address => mapping(address => string)) internal ipfsHashStorage;
     mapping(address => address[]) ipfsKeys;
     
-    function setIpfsHash(address target, bytes32 ipfsHash) public {
-        ipfsHashStorage[target][msg.sender] = ipfsHash;
+    function setIpfsHash(address target, string memory ipfsHash) public {
+        mapping(address => mapping(address => string)) storage _ipfsHashStorage = ipfsHashStorage;
+        _ipfsHashStorage[target][msg.sender] = ipfsHash;
         for (uint256 i = 0; i < ipfsKeys[target].length; i++) {
-            if (ipfsKeys[target][i] == target) {
+            if (ipfsKeys[target][i] == msg.sender) {
                 return;
             }
         }
         address[] storage keys = ipfsKeys[target];
-        keys.push(target);
+        keys.push(msg.sender);
         return;
     }
 
-    function getIpfsHashList(address target) public view returns(address[] memory, bytes32[] memory) {
+    function getIpfsHashList(address target) public view returns(address[] memory, string[] memory) {
         address[] memory keys = ipfsKeys[target];
-        bytes32[] memory ipfsHashList = new bytes32[](keys.length);
+        string[] memory ipfsHashList = new string[](keys.length);
         for(uint256 i = 0; i < keys.length; i++){
             ipfsHashList[i] = ipfsHashStorage[target][keys[i]];
         }
