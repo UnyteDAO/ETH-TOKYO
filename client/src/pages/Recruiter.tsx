@@ -135,7 +135,7 @@ const [searchWord, setSearchWord] = useState("")
   const buttonTransfer = async (to:any,amount:any) => {
     try {
       // pause関数の呼び出し。
-      await contract.methods.transfer(to, amount).send({
+      await contract.transfer(to, amount).send({
         from: accounts[0],
         gas: 6500000
       });

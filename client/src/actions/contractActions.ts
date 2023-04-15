@@ -3,7 +3,8 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import ABI from "./Unyte.json";
 
 const CONTRACT_ADDRESS = "0x23BA45ED0FFE9617d133630c4bd655131c175093";
-const SCHROLL_ADDRESS = "0x636528ea30838AC129b7d4F6F7E8AB621Cd90CdD";
+// 変更→ScrollではなくCELO
+const SCHROLL_ADDRESS = "0xffA3396D19c93017FfC175532E175F80496fe5C3";
 const UNYTE_ABI: any = ABI;
 const MIN_ABI: any = [
   {

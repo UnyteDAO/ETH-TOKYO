@@ -15,7 +15,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { styled, createTheme } from "@mui/system";
 import { getTokenBalance } from "../actions/contractActions";
 
-const StyledAppBar = styled(AppBar)(() => ({}));
+const StyledAppBar = styled(AppBar)(() => ({
+  position: "sticky",
+  top: 0,
+}));
 
 const Header = () => {
   const navigate = useNavigate();
@@ -96,7 +99,7 @@ const Header = () => {
                 variant="body1"
                 // component="span"
                 sx={{ fontSize: "2rem" }}>
-                {parseInt(balance * 18)} UNYT
+                {balance} UNYT
               </Typography>
             }
             open
