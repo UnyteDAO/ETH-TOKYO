@@ -12,7 +12,7 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
-import { ListWrapper, ListContent, ReviewerInput } from "../styled/styledComps";
+import { ListWrapper, ListContent } from "../styled/styledComps";
 import SearchIcon from "@mui/icons-material/Search";
 import FolderIcon from "@mui/icons-material/Folder";
 import { useNavigate } from "react-router-dom";
