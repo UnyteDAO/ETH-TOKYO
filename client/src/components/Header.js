@@ -9,6 +9,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import iconWide from "../assets/icon_wide.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, createTheme } from "@mui/system";
@@ -61,6 +62,23 @@ const Header = () => {
               alt="Unyte"
               style={{ height: "32px", width: "auto" }}
             />
+          </Button>
+          <Button component={Link} to="/" variant="text" color="secondary">
+            Reviewer
+          </Button>
+          <Button
+            component={Link}
+            to="/dao-worker"
+            variant="text"
+            color="secondary">
+            Dao Worker
+          </Button>
+          <Button
+            component={Link}
+            to="/recruiter"
+            variant="text"
+            color="secondary">
+            Recruiter
           </Button>
         </Box>
         {!walletAddress ? (
