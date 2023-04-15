@@ -31,7 +31,7 @@ const projectSecret = "1b8c0b6c542ea6beab46de4b4a7f69ca"; // <---------- your In
 // (for security concerns, consider saving these values in .env files)
 const auth =
   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
-const CONTRACT_ADDRESS = "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6";
+const CONTRACT_ADDRESS = "0x396955CB5Eb4EdF050e0D2A19424c7E4Cb14bCEE";
 
 const accessControlConditions = [
   {
@@ -42,7 +42,7 @@ const accessControlConditions = [
     parameters: [":userAddress"],
     returnValueTest: {
       comparator: ">",
-      value: "0",
+      value: "100",
     },
   },
 ];

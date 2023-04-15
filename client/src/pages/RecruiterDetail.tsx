@@ -154,7 +154,7 @@ const Recruiter = () => {
     const web3 = new Web3(Web3.givenProvider);
     const unyteContract:any = new web3.eth.Contract(
       Unyte.abi as AbiItem[],
-      "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
+      "0x396955CB5Eb4EdF050e0D2A19424c7E4Cb14bCEE"
     );
 
     console.log(address)
