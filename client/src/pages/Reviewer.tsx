@@ -63,13 +63,12 @@ const uploadToIPFS = async (encryptedData: String) => {
 const Reviewer = () => {
   const [litNodeClient, setLitNodeClient] =
     useState<LitJsSdk.LitNodeClient | null>(null);
-  const [walletAddress, setWalletAddress] = useState("");
+  const [targetWA, setTargetWA] = useState("");
   const [formValues, setFormValues] = useState<FormValues | any>({
     rating: "",
     good: "",
     more: "",
   });
-  const [text, setText] = useState("");
   const [key, setKey] = useState<Uint8Array>();
   const [encryptedData, setEncryptedData] = useState<Blob | undefined>();
   const [encryptedBinary, setEncryptedBinary] = useState<
@@ -100,16 +99,16 @@ const Reviewer = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "walletAddress") {
-      setWalletAddress(value);
+      setTargetWA(value);
     } else {
       setFormValues((prevValues: any) => ({ ...prevValues, [name]: value }));
     }
   };
 
-  const encrypt = useCallback(async () => {
+  const submitReview = useCallback(async () => {
     if (litNodeClient) {
       const { encryptedData, symmetricKey } = await LitJsSdk.encryptString(
-        formValues
+        JSON.stringify(formValues)
       );
       // store the access control conditions
       const authSig = await LitJsSdk.checkAndSignAuthMessage({
@@ -121,41 +120,16 @@ const Reviewer = () => {
         authSig,
         chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
       });
-      console.log("encryptedSymmetricKey", encryptedSymmetricKey);
       setKey(encryptedSymmetricKey);
       setEncryptedData(encryptedData);
       if (encryptedData) {
         const result = new Uint8Array(await encryptedData.arrayBuffer());
         setEncryptedBinary(result);
+        await upload();
+        await saveOnContract();
       }
-      // Decode the Uint8Array to a string
-      // const decoder = new TextDecoder("utf-16");
-      // const decodedString = decoder.decode(encryptedSymmetricKey);
-      // console.log(decodedString)
     }
   }, [litNodeClient, formValues]);
-
-  const decrypt = useCallback(async () => {
-    if (litNodeClient && encryptedData) {
-      const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: "ethereum",
-      });
-
-      const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
-        accessControlConditions,
-        toDecrypt: LitJsSdk.uint8arrayToString(key, "base16"),
-        chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-        authSig,
-      });
-
-      const decryptedString = await LitJsSdk.decryptString(
-        encryptedData,
-        symmetricKeyFromNodes
-      );
-
-      setDecryptedString(decryptedString);
-    }
-  }, [encryptedData, key, litNodeClient]);
 
   const upload = useCallback(async () => {
     if (encryptedBinary && key) {
@@ -172,68 +146,9 @@ const Reviewer = () => {
   const saveOnContract = useCallback(async () => {
     if (contract && cid) {
       // TODO: 評価の向け先を入力したwallet addressに変更できるように
-      await contract.methods
-        .setIpfsHash("0x24fA019F419811Dd5e62e4e0EFc62abCfb703494", cid)
-        .send({ from: account });
+      await contract.methods.setIpfsHash(targetWA, cid).send({ from: account });
     }
   }, [account, cid, contract]);
-
-  const fetchHashFromContract = useCallback(async () => {
-    if (contract) {
-      // TODO: 取得の向け先を変更できるように
-      const resp = await contract.methods
-        .getIpfsHashList("0x24fA019F419811Dd5e62e4e0EFc62abCfb703494")
-        .call();
-      console.log(resp);
-      setFetchedHashList(resp[1]);
-      setFetchedKeyList(resp[0]);
-    }
-  }, [contract]);
-
-  const fetchIpfsData = useCallback(async () => {
-    const promises = fetchedHashList.map(async (cid) => {
-      const response = await fetch(`https://ipfs.io/ipfs/${cid}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.text(); // Use response.json() if the data is in JSON format
-      return data;
-    });
-    const fetchedEncryptedDataList = await Promise.all(promises);
-    setFetchedEncryptedDataList(fetchedEncryptedDataList);
-  }, [fetchedHashList]);
-
-  const decrypt2 = useCallback(async () => {
-    if (litNodeClient && fetchedEncryptedDataList) {
-      const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: "ethereum",
-      });
-
-      const promises = fetchedEncryptedDataList.map(async (dataStr) => {
-        const data = JSON.parse(dataStr);
-        console.log(Object.values(data.encryptedKey));
-        const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
-          accessControlConditions,
-          toDecrypt: LitJsSdk.uint8arrayToString(
-            new Uint8Array(Object.values(data.encryptedKey)),
-            "base16"
-          ),
-          chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
-          authSig,
-        });
-
-        const decryptedString = await LitJsSdk.decryptString(
-          new Blob([new Uint8Array(Object.values(data.encryptedText))]),
-          symmetricKeyFromNodes
-        );
-
-        return decryptedString;
-      });
-
-      const textList = await Promise.all(promises);
-      setDecryptedStringList(textList);
-    }
-  }, [fetchedEncryptedDataList, litNodeClient]);
 
   const connectMetamask = useCallback(async () => {
     console.log("Welcome to MetaMask User🎉");
@@ -241,13 +156,11 @@ const Reviewer = () => {
     // connect with metamask wallet
     const accounts = await web3.eth.requestAccounts();
     const account = accounts[0];
-
     // setup instance to call contract with JSON RPC
     const contract = new web3.eth.Contract(
       Unyte.abi as AbiItem[],
       "0x8745C780Ee53339A0c4A5fB97B6CDbE23ae9925c"
     );
-
     setContract(contract);
     setAccount(account);
   }, []);
@@ -295,7 +208,7 @@ const Reviewer = () => {
             }}
             name="walletAddress"
             label="Wallet Address"
-            value={walletAddress}
+            value={targetWA}
             onChange={handleChange}
           />
         </Grid2With960W>
@@ -369,7 +282,7 @@ const Reviewer = () => {
           />
         </Grid2With960W>
         <Grid2With960W xs={12}>
-          <Button onClick={encrypt} variant="contained" size="large">
+          <Button onClick={submitReview} variant="contained" size="large">
             Submit
           </Button>
         </Grid2With960W>
