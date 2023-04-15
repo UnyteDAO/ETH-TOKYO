@@ -1,21 +1,17 @@
 import React from "react";
 import {
   TextField,
-  InputAdornment,
   Box,
-  List,
   ListItem,
   ListItemText,
   ListItemAvatar,
-  ListItemSecondaryAction,
-  IconButton,
   Avatar,
-  Button,
+  Container,
+  Grid,
+  Paper,
+  Typography,
 } from "@mui/material";
-import { ListWrapperNoP, ListContent, Ucol, Urow, TextForm } from "../styled/styledComps";
-import SearchIcon from "@mui/icons-material/Search";
 import FolderIcon from "@mui/icons-material/Folder";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 interface Data {
@@ -31,50 +27,61 @@ const data: Data[] = Array(10)
     id: index,
     name: `Item ${index + 1}`,
     good: "good",
-    more: "more"
+    more: "more",
   }));
 
 const Recruiter = () => {
   const { itemId } = useParams();
-  const navigate = useNavigate();
-
-  const handleSearch = () => {
-    console.log("Search clicked");
-  };
-  const handleButtonClick = (itemId: number) => {
-    navigate(`/recruiter/${itemId}`);
-  };
 
   return (
-    <ListWrapperNoP>
-      <ListContent>
-        <p>Item ID: {itemId}</p>
-        <Box>
-          <List>
-            {data.map((item, index) => (
-              <ListItem key={item.id}>
-                <ListItemAvatar sx={{ display: "flex", alignItems: "center"}}>
-                  <Avatar>
-                    <FolderIcon />
-                  </Avatar>
-                  <p>{item.name}</p>
-                </ListItemAvatar>
-                <Ucol>
-                  <Urow marginBottom={2}>
-                    <p>Good: </p>
-                    <TextForm fullWidth disabled={true} label={item.good} sx={{ m: 2}}/>
-                  </Urow>
-                  <Urow>
-                    <p>More: </p>
-                    <TextForm fullWidth disabled={true} label={item.more} sx={{ m: 2}}/>
-                  </Urow>
-                </Ucol>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </ListContent>
-    </ListWrapperNoP>
+    <Container maxWidth="md">
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Item ID: {itemId}
+        </Typography>
+        <Grid container spacing={2}>
+          {data.map((item, index) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <Paper elevation={2} sx={{ p: 2 }}>
+                <ListItem>
+                  <ListItemAvatar sx={{ mr: 2 }}>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+                <Box>
+                  <TextField
+                    fullWidth
+                    disabled
+                    label="Good"
+                    value={item.good}
+                    sx={{ my: 1 }}
+                  />
+                  <TextField
+                    fullWidth
+                    disabled
+                    label="More"
+                    value={item.more}
+                    sx={{ my: 1 }}
+                  />
+                </Box>
+                <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+                  {/* <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleButtonClick(item.id)}
+                  >
+                    View Details
+                  </Button> */}
+                </Box>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 
