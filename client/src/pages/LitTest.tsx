@@ -36,15 +36,14 @@ async function uploadToIPFS(encryptedData: String) {
 const accessControlConditions = [
     {
         contractAddress: '0x431D5dfF03120AFA4bDf332c61A6e1766eF37BDB',
-        standardContractType: '',
+        standardContractType: 'ERC20',
         chain: 137, // nothing actually lives on ethereum here, but we need to pass a chain
-        method: 'eth_getBalance',
+        method: 'balanceOf',
         parameters: [
             ':userAddress',
-            'latest'
         ],
         returnValueTest: {
-            comparator: '>=',
+            comparator: '>',
             value: '0'
         }
     }
