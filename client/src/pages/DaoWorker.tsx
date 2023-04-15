@@ -11,7 +11,7 @@ import {
   Checkbox,
   Select,
   MenuItem,
-  Typography
+  Typography,
 } from "@mui/material";
 import { ListWrapper, ListContent } from "../styled/styledComps";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -42,31 +42,27 @@ const DaoWorker = () => {
     {
       id: 0,
       name: `name`,
-      value: 10
+      value: 10,
     },
   ]);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [contract, setContract] = useState<Contract>();
   const [litNodeClient, setLitNodeClient] =
-  useState<LitJsSdk.LitNodeClient | null>(null);
+    useState<LitJsSdk.LitNodeClient | null>(null);
   const [fetchedKeyList, setFetchedKeyList] = useState<string[]>([]);
   const [fetchedHashList, setFetchedHashList] = useState<string[]>([]);
   const [fetchedEncryptedDataList, setFetchedEncryptedDataList] = useState<
-  string[]
+    string[]
   >([]);
   const [decryptedStringList, setDecryptedStringList] = useState<string[]>([]);
   const [encryptedData, setEncryptedData] = useState<Blob | undefined>();
   const [decryptedString, setDecryptedString] = useState<string | undefined>();
   const [key, setKey] = useState<Uint8Array>();
 
-
-
   const fetchHashFromContract = useCallback(async () => {
     if (contract) {
       // TODO: 取得の向け先を変更できるように
-      const resp = await contract.methods
-        .getIpfsHashList(walletAddress)
-        .call();
+      const resp = await contract.methods.getIpfsHashList(walletAddress).call();
       console.log(resp);
       setFetchedHashList(resp[1]);
       setFetchedKeyList(resp[0]);
@@ -121,7 +117,6 @@ const DaoWorker = () => {
     const fetchedEncryptedDataList = await Promise.all(promises);
     setFetchedEncryptedDataList(fetchedEncryptedDataList);
   }, [fetchedHashList]);
-
 
   useEffect(() => {
     const getAccount = async () => {
@@ -187,17 +182,22 @@ const DaoWorker = () => {
   return (
     <ListWrapper>
       <ListContent>
-        <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 2,
+          }}>
           <Box
             onClick={() => handleBarClick(0)}
             sx={{
               width: "400px",
               height: "25px",
-              backgroundColor: selectedIndex === 0 ? "primary.main" : "grey.300",
+              backgroundColor:
+                selectedIndex === 0 ? "primary.main" : "grey.300",
               borderRadius: "5px",
               cursor: "pointer",
-            }}
-          >
+            }}>
             Bar 1
           </Box>
           <Box
@@ -205,12 +205,12 @@ const DaoWorker = () => {
             sx={{
               width: "400px",
               height: "25px",
-              backgroundColor: selectedIndex === 1 ? "primary.main" : "grey.300",
+              backgroundColor:
+                selectedIndex === 1 ? "primary.main" : "grey.300",
               borderRadius: "5px",
               cursor: "pointer",
               marginLeft: "5px",
-            }}
-          >
+            }}>
             Bar 2
           </Box>
         </Box>
@@ -225,7 +225,7 @@ const DaoWorker = () => {
                 </ListItemAvatar>
                 <ListItemText primary={item.name} />
                 <ListItemSecondaryAction>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Box
                       sx={{
                         display: "flex",
@@ -236,8 +236,7 @@ const DaoWorker = () => {
                         borderRadius: "50%",
                         backgroundColor: "primary.main",
                         marginRight: 2,
-                      }}
-                    >
+                      }}>
                       <Typography variant="h6" sx={{ color: "common.white" }}>
                         {item.value}
                       </Typography>
@@ -251,9 +250,11 @@ const DaoWorker = () => {
                   <Checkbox
                     {...label}
                     defaultChecked
-                    sx={{ "& .MuiSvgIcon-root": { fontSize:28, marginRight: 5 } }}
-                    />
-                    {/* <Select
+                    sx={{
+                      "& .MuiSvgIcon-root": { fontSize: 28, marginRight: 5 },
+                    }}
+                  />
+                  {/* <Select
                       value={tips[index]}
                       onChange={(e) => handleTipChange(index, Number(e.target.value))}
                       sx={{ marginRight: 5, backgroundColor: "orange" }}
@@ -264,22 +265,20 @@ const DaoWorker = () => {
                         </MenuItem>
                       ))}
                     </Select> */}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleButtonClick(item.id)}
-                    >
-                      Tips
-                    </Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </ListContent>
-      </ListWrapper>
-    );
-  };
-  
-  export default DaoWorker;
-  
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleButtonClick(item.id)}>
+                    Tips
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </ListContent>
+    </ListWrapper>
+  );
+};
+
+export default DaoWorker;

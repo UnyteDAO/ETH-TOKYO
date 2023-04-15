@@ -105,3 +105,104 @@ export const LitTest = () => {
     }
   }, [encryptedData, key, litNodeClient]);
 };
+
+// const encrypt = useCallback(async () => {
+//   if (litNodeClient) {
+//     const { encryptedData, symmetricKey } = await LitJsSdk.encryptString(
+//       JSON.stringify(formValues)
+//     );
+//     // store the access control conditions
+//     const authSig = await LitJsSdk.checkAndSignAuthMessage({
+//       chain: "ethereum",
+//     });
+//     const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
+//       accessControlConditions,
+//       symmetricKey,
+//       authSig,
+//       chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+//     });
+//     console.log("encryptedSymmetricKey", encryptedSymmetricKey);
+//     setKey(encryptedSymmetricKey);
+//     setEncryptedData(encryptedData);
+//     if (encryptedData) {
+//       const result = new Uint8Array(await encryptedData.arrayBuffer());
+//       setEncryptedBinary(result);
+//     }
+//     // Decode the Uint8Array to a string
+//     // const decoder = new TextDecoder("utf-16");
+//     // const decodedString = decoder.decode(encryptedSymmetricKey);
+//     // console.log(decodedString)
+//   }
+// }, [litNodeClient, formValues]);
+// const decrypt = useCallback(async () => {
+//   if (litNodeClient && encryptedData) {
+//     const authSig = await LitJsSdk.checkAndSignAuthMessage({
+//       chain: "ethereum",
+//     });
+//     const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
+//       accessControlConditions,
+//       toDecrypt: LitJsSdk.uint8arrayToString(key, "base16"),
+//       chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+//       authSig,
+//     });
+//     const decryptedString = await LitJsSdk.decryptString(
+//       encryptedData,
+//       symmetricKeyFromNodes
+//     );
+//     setDecryptedString(decryptedString);
+//   }
+// }, [encryptedData, key, litNodeClient]);
+// const fetchHashFromContract = useCallback(async () => {
+//   if (contract) {
+//     // TODO: 取得の向け先を変更できるように
+//     const resp = await contract.methods
+//       .getIpfsHashList("0x24fA019F419811Dd5e62e4e0EFc62abCfb703494")
+//       .call();
+//     console.log(resp);
+//     setFetchedHashList(resp[1]);
+//     setFetchedKeyList(resp[0]);
+//   }
+// }, [contract]);
+// const fetchIpfsData = useCallback(async () => {
+//   const promises = fetchedHashList.map(async (cid) => {
+//     const response = await fetch(`https://ipfs.io/ipfs/${cid}`);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     const data = await response.text(); // Use response.json() if the data is in JSON format
+//     return data;
+//   });
+//   const fetchedEncryptedDataList = await Promise.all(promises);
+//   setFetchedEncryptedDataList(fetchedEncryptedDataList);
+// }, [fetchedHashList]);
+// const decrypt2 = useCallback(async () => {
+//   if (litNodeClient && fetchedEncryptedDataList) {
+//     const authSig = await LitJsSdk.checkAndSignAuthMessage({
+//       chain: "ethereum",
+//     });
+
+//     const promises = fetchedEncryptedDataList.map(async (dataStr) => {
+//       const data = JSON.parse(dataStr);
+//       console.log(Object.values(data.encryptedKey));
+//       const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
+//         accessControlConditions,
+//         toDecrypt: LitJsSdk.uint8arrayToString(
+//           new Uint8Array(Object.values(data.encryptedKey)),
+//           "base16"
+//         ),
+//         chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+//         authSig,
+//       });
+
+//       const decryptedString = await LitJsSdk.decryptString(
+//         new Blob([new Uint8Array(Object.values(data.encryptedText))]),
+//         symmetricKeyFromNodes
+//       );
+
+//       return decryptedString;
+//     });
+
+//     const textList = await Promise.all(promises);
+//     setDecryptedStringList(textList);
+//   }
+// }, [fetchedEncryptedDataList, litNodeClient]);
