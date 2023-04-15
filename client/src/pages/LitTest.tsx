@@ -240,7 +240,7 @@ const LitTest = () => {
     // setup instance to call contract with JSON RPC
     const contract = new web3.eth.Contract(
       Unyte.abi as AbiItem[],
-      "0x8745C780Ee53339A0c4A5fB97B6CDbE23ae9925c"
+      "0xf6954262a428ecC83c72E22A1a8E357f5DdaDAD6"
     );
 
     setContract(contract);
