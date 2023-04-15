@@ -77,6 +77,7 @@ const DaoWorker = () => {
   ) => {
     if (contract) {
       const res = await contract.methods.getIpfsHashList(walletAddress).call();
+      console.log("fetchHashFromContract");
       console.log(res);
       return res;
     }
